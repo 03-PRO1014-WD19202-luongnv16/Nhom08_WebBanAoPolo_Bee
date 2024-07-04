@@ -1,6 +1,27 @@
 <?php 
  include("Layout/header.php");
 ?>
+<?php
+    include('config.php');
+	if(isset($_POST['dangky'])) {
+		$fullname= $_POST['hovaten'];
+        $tendangnhap  = $_POST['tendangnhap'];
+		$email = $_POST['email'];
+        $diachi = $_POST['diachi'];
+        $matkhau = $_POST['matkhau'];
+		$dienthoai = $_POST['dienthoai'];
+		$sql_dangky = mysqli_query($mysqli,"INSERT INTO user(fullname,tendangnhap,email,diachi,matkhau,dienthoai) VALUE('".$fullname."','".$tendangnhap."','".$email."','".$diachi."','".$matkhau."','".$dienthoai."')");
+		if($sql_dangky){
+			if($fullname!="" && $tendangnhap!="" && $email!="" && $diachi!="" && $dienthoai!="" && $matkhau!=""){
+                echo '<script>alert("Đăng ký thành công.");
+                window.location.href="login.php";
+                </script>';
+                
+			} 
+		
+		}
+	}
+?>
 <!-- pages-title-start -->
 <section class="contact-img-area">
                 <div class="container">

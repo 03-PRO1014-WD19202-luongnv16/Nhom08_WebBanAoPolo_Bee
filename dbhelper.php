@@ -6,7 +6,7 @@ function execute($sql)
 	//save data into table
 	// open connection to database
 	$con = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-	mysqli_set_charset($con, 'UTF8');
+  	mysqli_set_charset($con, 'UTF8');
 	//insert, update, delete
 	mysqli_query($con, $sql);
 
@@ -26,10 +26,7 @@ function executeResult($sql)
 	while ($row = mysqli_fetch_array($result, 1)) {
 		$data[] = $row;
 	}
-
-	//close connection
 	mysqli_close($con);
-
 	return $data;
 }
 
@@ -47,8 +44,4 @@ function executeSingleResult($sql)
 	mysqli_close($con);
 
 	return $row;
-}
-function getLastInsertedId() {
-    global $con;
-    return mysqli_insert_id($con);
 }

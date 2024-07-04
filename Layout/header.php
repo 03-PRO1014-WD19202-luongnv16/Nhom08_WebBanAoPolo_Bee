@@ -1,3 +1,10 @@
+
+<?php
+
+require_once('config.php');
+require_once('database/dbhelper.php');
+
+?>
 <!doctype html>
 <html class="no-js" lang="">
 <head>
@@ -75,7 +82,41 @@
                                     <!-- <li><a href="my-account.html"><i class="fa fa-user"></i>My account</a></li> -->
                                     <li><a href="shopping-cart.php"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a></li>
                                     <li><a href="checkout_product.php"><i class="fa fa-usd"></i>Thanh toán</a></li>
-                                    
+                                    <?php
+                                    if(isset($_COOKIE['tendangnhap'])) {
+                                        $user_admin = $_COOKIE['tendangnhap'];
+
+                                        // Lấy thông tin người dùng từ cơ sở dữ liệu
+                                        $query = "SELECT * FROM user WHERE tendangnhap='$user_admin'";
+                                        $result = mysqli_query($mysqli, $query);
+
+                                        if ($result && mysqli_num_rows($result) > 0) {
+                                            $user = mysqli_fetch_assoc($result);
+
+                                            echo '<li><a style="color:#00FFFF; font-weight: 500; text-transform: uppercase;" href=""><i class="fas fa-star" style="color: #f6fa05;"></i>' . $_COOKIE['tendangnhap'] . '</a>
+                                                    <ul><div class="logout">';
+                                            if ($user['role'] == 'admin') {
+                                                echo '
+                                                <li><a href="admin/index.php"><i class="fas fa-user-edit"></i>Admin</a> <br></li>
+                                                ';
+                                            }
+                                            echo '
+                                                <li><a href="changePass.php"><i class="fas fa-exchange-alt"></i>Đổi mật khẩu</a> <br></li>
+                                                <li><a href="checkout_product.php"><i class="fas fa-wallet"></i>Thanh Toán</a><br></li>
+                                                <li><a href="history_product.php"><i class="fas fa-history"></i>Đơn Hàng</a><br></li>
+                                                <li><a href="mailbox.php"><i class="fas fa-inbox"></i>Hộp Thư</a><br></li>
+                                                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
+                                                <li></li>
+                                                </div></ul>';
+                                        } else {
+                                            // Xử lý lỗi khi không lấy được thông tin người dùng
+                                            echo "Lỗi: Không thể lấy thông tin người dùng.";
+                                        }
+                                    } else {
+                                        echo '<li><a href="login.php"><i class="fa fa-lock"></i>Đăng nhập</a></li>
+                                                <li><a href="signup.php"><i class="fa fa-user-plus"></i>Đăng ký</a></li>';
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                         </div>
@@ -148,7 +189,7 @@
                                     </div>
                                 </div>
                                 <!-- mobile menu end -->
-                                <!-- <div class="right-header re-right-header">
+                                <div class="right-header re-right-header">
                                     <ul>
                                         <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
                                             <form action="shop.php" method="GET" id="searchform">
@@ -174,7 +215,7 @@
                                         </li>
                                         
                                     </ul>
-                                </div> -->
+                                </div>
                                 
                             </div>
                         </div>
