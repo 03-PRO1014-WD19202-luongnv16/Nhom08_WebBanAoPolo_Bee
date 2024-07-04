@@ -1,3 +1,13 @@
+<?php 
+    session_start();
+	if(!isset($_COOKIE['tendangnhap_admin'])){
+		header('Location: login.php');
+	}
+ ?>
+<?php require_once('../database/dbhelper.php'); ?>
+<?php
+header("content-type:text/html; charset=UTF-8");
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>

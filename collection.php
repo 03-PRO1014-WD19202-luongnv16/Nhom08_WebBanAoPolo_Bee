@@ -1,3 +1,5 @@
+<?php require_once('database/config.php');
+require_once('database/dbhelper.php');?>
 <?php 
  include("Layout/header.php");
 ?>

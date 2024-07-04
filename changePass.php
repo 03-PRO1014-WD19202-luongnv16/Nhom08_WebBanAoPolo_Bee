@@ -1,3 +1,53 @@
+<?php
+    
+	require_once('config.php');
+    require_once('database/dbhelper.php');
+	if(isset($_POST['submit']) && $_POST["password"] != '' && $_POST["newpassword"] != '' && $_POST["renewpassword"] != ''){
+		$password = $_POST['password'];
+		$newpassword = $_POST['newpassword'];
+        $renewpassword = $_POST['renewpassword'];
+        $sql = "SELECT * FROM user WHERE matkhau= '$password'";
+        execute($sql);
+        if (isset($_COOKIE['matkhau'])) {
+            if($password == $_COOKIE['matkhau']) {
+                if ($newpassword != $renewpassword) {
+                    echo '<script language="javascript">
+                    alert("Mật khẩu không khớp, vui lòng nhập lại!!! ");
+                    window.location = "changePass.php";
+                    </script>';
+                    die();
+                } else {
+                    if (isset($_COOKIE['tendangnhap'])) {
+                        $tendangnhap = $_COOKIE['tendangnhap'];
+                        $sql = "UPDATE user set matkhau = '$newpassword' WHERE tendangnhap = '$tendangnhap'";
+                        execute($sql);
+                       
+                        echo '<script language ="javascript">
+                        alert("Đổi mật khẩu thành công !");
+                        window.location = "index.php";
+                        </script>';
+
+                        session_start();
+                        if (isset($_COOKIE['tendangnhap']) && ($_COOKIE['tendangnhap'])) {
+                            setcookie("tendangnhap", "", time() - 30 * 24 * 60 * 60, '/');
+                            setcookie("matkhau", "", time() - 30 * 24 * 60 * 60, '/');
+
+                            setcookie("tendangnhap", $tendangnhap, time() + 30 * 24 * 60 * 60, '/');
+                            setcookie("matkhau", $newpassword, time() + 30 * 24 * 60 * 60, '/');
+
+                            
+                        }
+                    }
+                }
+            } else {
+                echo '<script language="javascript">
+                        alert("Mật khẩu bạn nhập không chính xác !!!");
+                        window.location = "login.php";
+                     </script>';
+            }
+        }
+    }
+?>
 <?php 
  include("Layout/header.php");
 ?>

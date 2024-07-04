@@ -1,3 +1,78 @@
+<?php 
+    session_start();
+	if(!isset($_COOKIE['tendangnhap_admin'])){
+		header('Location: login.php');
+	}
+ ?>
+<?php
+header("content-type:text/html; charset=UTF-8");
+?>
+<?php
+require_once('../database/dbhelper.php');
+$id_user = $fullname = $tendangnhap = $email = $diachi = $matkhau = $dienthoai = '';
+if (!empty($_POST['fullname'])) {
+    $fullname = '';
+    if (isset($_POST['fullname'])) {
+        $fullname = $_POST['fullname'];
+        $fullname = str_replace('"', '\\"', $fullname);
+    }
+    if (isset($_POST['id_user'])) {
+        $id_user = $_POST['id_user'];
+    }
+    if (isset($_POST['tendangnhap'])) {
+        $tendangnhap = $_POST['tendangnhap'];
+        $tendangnhap = str_replace('"', '\\"', $tendangnhap);
+    }
+    if (isset($_POST['email'])) {
+        $email = $_POST['email'];
+        $email = str_replace('"', '\\"', $email);
+    }
+    if (isset($_POST['diachi'])) {
+        $diachi = $_POST['diachi'];
+        $diachi = str_replace('"', '\\"', $diachi);
+    }
+    if (isset($_POST['matkhau'])) {
+        $matkhau = $_POST['email'];
+        $matkhau = str_replace('"', '\\"', $matkhau);
+    }
+    if (isset($_POST['dienthoai'])) {
+        $dienthoai = $_POST['dienthoai'];
+        $dienthoai = str_replace('"', '\\"', $dienthoai);
+    }
+    if (!empty($fullname)) {
+        // Lưu vào DB
+        if ($id_user == '') {
+            // Thêm khách hàng
+            $sql = 'insert into user(fullname, tendangnhap, email, diachi, matkhau, dienthoai) 
+            values ("' . $fullname . '","' . $tendangnhap . '","' . $email . '","' . $diachi . '","' . $matkhau . '","' . $dienthoai . '")';
+        } 
+        else {
+            // Sửa khách hàng
+            $sql = 'update user set fullname="' . $fullname . '",tendangnhap="' . $tendangnhap . '",email="' . $email . '",diachi="' . $diachi . '",matkhau="' . $matkhau . '",dienthoai="' . $dienthoai . '" where id_user=' . $id_user;
+        }
+        execute($sql);
+        header('Location: index.php');
+        die();
+    }
+}
+
+
+
+if (isset($_GET['id_user'])) {
+    $id_user = $_GET['id_user'];
+    $sql = 'select * from user where id_user=' . $id_user;
+    $user = executeSingleResult($sql);
+    if ($user != null) {
+        $fullname = $user['fullname'];
+        $tendangnhap = $user['tendangnhap'];
+        $email = $user['email'];
+        $diachi = $user['diachi'];
+        $matkhau = $user['matkhau'];
+        $dienthoai = $user['dienthoai'];
+        
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -106,7 +181,7 @@
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="../../images/logo.png" width="60"> Luxury Store</h1>
                         </div>
                         
                     </div>
@@ -127,6 +202,12 @@
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -146,7 +227,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -166,7 +252,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -186,7 +277,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -210,33 +306,38 @@
                                 <form method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="name">Tên Khách Hàng:</label>
-                                        <input type="text" id="id_user" name="id_user" value="" hidden="true">
-                                        <input required="true" type="text" class="form-control" id="fullname" name="fullname" value="">
+                                        <input type="text" id="id_user" name="id_user" value="<?= $id_user ?>" hidden="true">
+                                        <input required="true" type="text" class="form-control" id="fullname" name="fullname" value="<?= $fullname ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Tên Đăng Nhập:</label>
-                                        <input required="true" type="text" class="form-control" id="tendangnhap" name="tendangnhap" value="">
+                                        <input required="true" type="text" class="form-control" id="tendangnhap" name="tendangnhap" value="<?= $tendangnhap ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Email:</label>
-                                        <input required="true" type="text" class="form-control" id="email" name="email" value="">
+                                        <input required="true" type="text" class="form-control" id="email" name="email" value="<?= $email ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Địa Chỉ:</label>
-                                        <input required="true" type="text" class="form-control" id="diachi" name="diachi" value="">
+                                        <input required="true" type="text" class="form-control" id="diachi" name="diachi" value="<?= $diachi ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Mật Khẩu:</label>
-                                        <input required="true" type="text" class="form-control" id="matkhau" name="matkhau" value="">
+                                        <input required="true" type="text" class="form-control" id="matkhau" name="matkhau" value="<?= $matkhau ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Số Điện Thoại:</label>
-                                        <input required="true" type="text" class="form-control" id="dienthoai" name="dienthoai" value="">
+                                        <input required="true" type="text" class="form-control" id="dienthoai" name="dienthoai" value="<?= $dienthoai ?>">
                                     </div>
                                     <hr class="navbar-divider my-3 opacity-20">
-                                    <button class="btn btn-success" >Lưu</button>
-
-                                    <a href="" class="btn btn-warning">Back</a>
+                                    <button class="btn btn-success" onclick="addUser()">Lưu</button>
+                                    <?php
+                                    $previous = "javascript:history.go(-1)";
+                                    if (isset($_SERVER['HTTP_REFERER'])) {
+                                        $previous = $_SERVER['HTTP_REFERER'];
+                                    }
+                                    ?>
+                                    <a href="<?= $previous ?>" class="btn btn-warning">Back</a>
                                 </form>
                             </div>
                         </table>
@@ -247,7 +348,13 @@
     </div>
 </div>
     <script type="text/javascript">
-
+        function addUser()
+        {
+            var option = confirm('Thêm User thành công')
+            if (!option) {
+                return;
+            }
+        }
     </script>
   
 </body>

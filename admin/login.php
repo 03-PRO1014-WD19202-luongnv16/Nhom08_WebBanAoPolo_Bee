@@ -1,4 +1,39 @@
-<!DOCTYPE html>
+
+<?php
+	session_start();
+	include('config/config.php');
+  include('config/dbhelper.php');
+	if(isset($_POST['submit'])){
+		$tendangnhap_admin = $_POST['tendangnhap_admin'];
+		$matkhau_admin = $_POST['matkhau_admin'];
+    $sql = "SELECT * FROM user WHERE tendangnhap='".$tendangnhap_admin."' AND matkhau='".$matkhau_admin."' LIMIT 1";
+		$row = mysqli_query($mysqli,$sql);
+		$count = mysqli_num_rows($row);
+		if($count > 0){
+            $user = mysqli_fetch_assoc($row);
+            if ($user['role'] == 'admin'){
+                // $_SESSION['submit'] = $tendangnhap;
+                echo '<script>alert("Welcome Admin !!!");
+                window.location.href="index.php";
+                </script>';
+                $tendangnhap_admin = trim(strip_tags($_POST['tendangnhap_admin']));
+                $matkhau_admin = trim(strip_tags($_POST['matkhau_admin']));
+                session_start();
+                setcookie("tendangnhap_admin", $tendangnhap_admin, time() + 30 * 24 * 60 * 60, '/');
+                setcookie("matkhau_admin", $matkhau_admin, time() + 30 * 24 * 60 * 60, '/');
+                
+            }
+            else {
+              '<script>alert("Tài khoản hoặc Mật khẩu của Admin không đúng,vui lòng nhập lại.");</script>';
+            }
+			
+		}
+        else{
+			echo '<script>alert("Tài khoản hoặc Mật khẩu không đúng,vui lòng nhập lại.");</script>';
+			
+		}
+    }
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   	<meta charset="UTF-8">

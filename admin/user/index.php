@@ -1,3 +1,15 @@
+<?php 
+    session_start();
+	if(!isset($_COOKIE['tendangnhap_admin'])){
+		header('Location: login.php');
+	}
+ ?>
+
+<?php require_once('../database/dbhelper.php'); ?>
+<?php
+header("content-type:text/html; charset=UTF-8");
+?>
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -38,7 +50,7 @@
                     <!-- Toggle -->
                     <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-parent-child">
-                            <img alt="Image Placeholder" src="../../images/logo.png" class="avatar avatar- rounded-circle">
+                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
                             <span class="avatar-child avatar-badge bg-success"></span>
                         </div>
                     </a>
@@ -126,7 +138,7 @@
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="../../images/logo.png" width="60"> Luxury Store</h1>
                         </div>
                         
                     </div>
@@ -147,7 +159,12 @@
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -167,7 +184,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -187,7 +209,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -207,7 +234,12 @@
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -250,7 +282,55 @@
                             
                             <tbody>
                                 <tr>
-   
+                                    <?php
+                                        // Lấy danh sách Sản Phẩm
+                                        if (!isset($_GET['page'])) {
+                                            $pg = 1;
+                                            echo 'Bạn đang ở trang: 1';
+                                        } else {
+                                            $pg = $_GET['page'];
+                                            echo 'Bạn đang ở trang: ' . $pg;
+                                        }
+
+                                        try {
+
+                                            if (isset($_GET['page'])) {
+                                                $page = $_GET['page'];
+                                            } else {
+                                                $page = 1;
+                                            }
+                                            $limit = 5;
+                                            $start = ($page - 1) * $limit;
+                                            $sql = "SELECT * FROM user limit $start,$limit";;
+                                            executeResult($sql);
+                                            // $sql = 'select * from product limit $star,$limit';
+                                            $categoryList = executeResult($sql);
+
+                                            $index = 1;
+                                            foreach ($categoryList as $item) {
+                                                echo '  <tr>
+                                                            <td>' . ($index++) . '</td>
+                                                            <td class="text-heading font-semibold">' . $item['fullname'] . '</td>
+                                                            <td class="text-heading font-semibold">' . $item['tendangnhap'] . '</td> 
+                                                            <td class="text-heading font-semibold">' . $item['email'] . '</td> 
+                                                            <td class="text-heading font-semibold">' . $item['diachi'] . '</td> 
+                                                            <td class="text-heading font-semibold">' . $item['matkhau'] . '</td> 
+                                                            <td class="text-heading font-semibold">' . $item['dienthoai'] . '</td>                                                    
+                                                            <td>
+                                                                <a href="add.php?id_user=' . $item['id_user'] . '">
+                                                                    <button class=" btn btn-warning">Sửa</button> 
+                                                                </a> 
+                                                            </td>
+                                                            <td>            
+                                                            <button class="btn btn-danger" onclick="deleteUser('.$item['id_user'].')">Xoá</button>
+                                                            </td>
+                                                        </tr>';
+                                            }
+                                        } catch (Exception $e) {
+                                            die("Lỗi thực thi sql: " . $e->getMessage());
+                                        }
+                                    ?>
+                                    
                                 </tr>
                                 
                             </tbody>
@@ -260,7 +340,31 @@
                         
                         <nav aria-label="Page navigation example">
                           <ul class="pagination">
-                         
+                          <?php
+                            $sql = "SELECT * FROM `product`";
+                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                            $result = mysqli_query($conn, $sql);
+                            if (mysqli_num_rows($result)) {
+                                $numrow = mysqli_num_rows($result);
+                                $current_page = ceil($numrow / 5);
+                                // echo $current_page;
+                            }
+                            if (!isset($current_page)) {
+                                $current_page = 1; // Hoặc giá trị mặc định nào đó
+                            }
+                            for ($i = 1; $i <= $current_page; $i++) {
+                                // Nếu là trang hiện tại thì hiển thị thẻ span
+                                // ngược lại hiển thị thẻ a
+                                if ($i == $current_page) {
+                                    echo '
+                            <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                } else {
+                                    echo '
+                            <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>
+                                    ';
+                                }
+                            }
+                        ?>
                           </ul>
                         </nav>
                     </div>
@@ -270,7 +374,29 @@
     </div>
 </div>
     <script type="text/javascript">
-		
+		function deleteUser(id_user) {
+			var option = confirm('Bạn có chắc chắn muốn xoá User này không?')
+			if(!option) {
+				return;
+			}
+			// Kiểm tra role trước khi xoá
+            $.get('ajax.php', {
+            'id_user': id_user,
+            'action': 'checkRole'
+            }, function(data) {
+                if (data === 'admin') {
+                    alert('Không thể xoá tài khoản admin.');
+                } else {
+                    // Gửi yêu cầu xoá nếu không phải là tài khoản admin
+                    $.post('ajax.php', {
+                        'id_user': id_user,
+                        'action': 'delete'
+                    }, function(data) {
+                        location.reload();
+                    });
+                }
+            });
+		}
 	</script>
   
 </body>
