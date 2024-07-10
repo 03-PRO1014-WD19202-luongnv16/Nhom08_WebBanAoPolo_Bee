@@ -7,6 +7,47 @@
 <?php
 header("content-type:text/html; charset=UTF-8");
 ?>
+<?php
+require_once('../database/dbhelper.php');
+$id = $name = '';
+if (!empty($_POST['name'])) {
+    $name = '';
+    if (isset($_POST['name'])) {
+        $name = $_POST['name'];
+        $name = str_replace('"', '\\"', $name);
+    }
+    if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+    }
+    if (!empty($name)) {
+        $created_at = $updated_at = date('Y-m-d H:s:i');
+        // Lưu vào DB
+        if ($id == '') {
+            // Thêm Thương Hiệu
+            $sql = 'insert into collections(name, created_at,updated_at) 
+            values ("' . $name . '","' . $created_at . '","' . $updated_at . '")';
+        } 
+        else {
+            // Sửa Thương Hiệu
+            $sql = 'update collections set name="' . $name . '", updated_at="' . $updated_at . '" where id=' . $id;
+        }
+        execute($sql);
+        header('Location: index.php');
+        die();
+    }
+}
+
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = 'select * from collections where id=' . $id;
+    $collections = executeSingleResult($sql);
+    if ($collections != null) {
+        $name = $collections['name'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -38,7 +79,7 @@ header("content-type:text/html; charset=UTF-8");
             </button>
             <!-- Brand -->
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <h3 class="text-success"><img src="../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
+                <h3 class="text-success"><img src="/../../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
             </a>
             <!-- User menu (mobile) -->
             <div class="navbar-user d-lg-none">
@@ -136,7 +177,7 @@ header("content-type:text/html; charset=UTF-8");
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
                         </div>
                         <!-- Actions -->
                         
@@ -158,7 +199,12 @@ header("content-type:text/html; charset=UTF-8");
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
-                                        
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -178,7 +224,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
-                                           
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -198,7 +249,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-                                            
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -218,7 +274,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-                                            
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -247,7 +308,12 @@ header("content-type:text/html; charset=UTF-8");
                                 </div>
                                 <hr class="navbar-divider my-3 opacity-20">
                                 <button class="btn btn-success" onclick="addProduct()">Lưu</button>
-
+                                <?php
+                                $previous = "javascript:history.go(-1)";
+                                if (isset($_SERVER['HTTP_REFERER'])) {
+                                    $previous = $_SERVER['HTTP_REFERER'];
+                                }
+                                ?>
                                 <a href="<?= $previous ?>" class="btn btn-warning">Back</a>
                             </form>
                         </div>
@@ -259,7 +325,13 @@ header("content-type:text/html; charset=UTF-8");
     </div>
 </div>
     <script type="text/javascript">
-
+        function addProduct()
+        {
+            var option = confirm('Thêm thương hiệu thành công')
+            if (!option) {
+                return;
+            }
+        }
     </script>
   
 </body>

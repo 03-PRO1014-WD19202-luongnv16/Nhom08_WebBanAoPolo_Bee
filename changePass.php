@@ -6,6 +6,7 @@
 		$password = $_POST['password'];
 		$newpassword = $_POST['newpassword'];
         $renewpassword = $_POST['renewpassword'];
+        //
         $sql = "SELECT * FROM user WHERE matkhau= '$password'";
         execute($sql);
         if (isset($_COOKIE['matkhau'])) {

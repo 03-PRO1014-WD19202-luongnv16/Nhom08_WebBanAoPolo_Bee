@@ -15,7 +15,7 @@ header("content-type:text/html; charset=UTF-8");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard PoloBee Store</title>
+  <title>Dashboard Luxury Store</title>
   <link rel="stylesheet" href="./style.css">
   <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -35,7 +35,7 @@ header("content-type:text/html; charset=UTF-8");
             </button>
             <!-- Brand -->
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <h3 class="text-success"><img src="../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
+                <h3 class="text-success"><img src="/Web/images/logo.png" width="40" ><span class="text-info">LUXURY</span>STORE</h3> 
             </a>
             <!-- Divider -->
             <hr class="navbar-divider my-18 opacity-20">
@@ -111,7 +111,7 @@ header("content-type:text/html; charset=UTF-8");
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="/Web/images/logo.png" width="60"> Luxury Store</h1>
                         </div>
                         
                     </div>
@@ -132,7 +132,12 @@ header("content-type:text/html; charset=UTF-8");
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -152,6 +157,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -171,7 +182,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-  
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -191,7 +207,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-      
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -226,7 +247,86 @@ header("content-type:text/html; charset=UTF-8");
                             
                             <tbody>
                                 <tr>
-                                   
+                                        <?php
+                                            // Lấy danh sách Sản Phẩm
+                                            if (!isset($_GET['page'])) {
+                                                $pg = 1;
+                                                echo 'Bạn đang ở trang: 1';
+                                            } else {
+                                                $pg = $_GET['page'];
+                                                echo 'Bạn đang ở trang: ' . $pg;
+                                            }
+                                            try {
+
+                                                if (isset($_GET['page'])) {
+                                                    $page = $_GET['page'];
+                                                } else {
+                                                    $page = 1;
+                                                }
+                                                $limit = 10;
+                                                $start = ($page - 1) * $limit;
+
+                                                $sql = "SELECT * from orders, order_details, product
+                                                where order_details.order_id=orders.id and product.id=order_details.product_id ORDER BY order_date DESC limit $start,$limit ";
+                                                $order_details_List = executeResult($sql);
+                                                $total = 0;
+                                                $count = 0;
+                                                // if (is_array($order_details_List) || is_object($order_details_List)){
+                                                foreach ($order_details_List as $item) {
+                                                    echo '
+                                                        <tr>
+                                                            <td> 
+                                                                <a class="text-heading " href="#">
+                                                                    ' . (++$count) . '
+                                                                </a>
+                                                            </td>
+                                                            
+                                                            <td> 
+                                                                <a class="text-heading font-semibold" href="#">
+                                                                    ' . $item['fullname'] . '
+                                                                </a>
+                                                            </td>
+
+                                                            <td> 
+                                                                <a class="text-heading font-semibold" href="#">
+                                                                    ' . $item['title'] . '
+                                                                </a>
+                                                            </td>
+
+                                                            <td> 
+                                                                <a class="text-heading " href="#">
+                                                                    ' . $item['num'] . '
+                                                                </a>
+                                                            </td>
+
+                                                            <td> 
+                                                                <a class="text-heading " href="#">
+                                                                    ' . number_format($item['num'] * $item['price'], 0, ',', '.') . '<span> VNĐ</span>
+                                                                </a>
+                                                            </td>
+
+                                                            <td> 
+                                                                <a class="text-heading " href="#">
+                                                                    ' . $item['address'] . '
+                                                                </a>
+                                                            </td>
+
+                                                            <td> 
+                                                                <a class="text-heading " href="#">
+                                                                    ' . $item['phone_number'] . '
+                                                                </a>
+                                                            </td>
+                                                            
+                                                        
+                                                            
+                                                        </tr>
+                                                    ';
+                                                }
+                                            } catch (Exception $e) {
+                                                die("Lỗi thực thi sql: " . $e->getMessage());
+                                            }
+                                        ?>
+                                    
                                 </tr>
                                 
                             </tbody>
@@ -235,7 +335,28 @@ header("content-type:text/html; charset=UTF-8");
                     <div class="card-footer border-0 py-5">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                            
+                            <?php
+                                $sql = "SELECT * FROM `product`";
+                                $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                $result = mysqli_query($conn, $sql);
+                                if (mysqli_num_rows($result)) {
+                                    $numrow = mysqli_num_rows($result);
+                                    $current_page = ceil($numrow / 5);
+                                    // echo $current_page;
+                                }
+                                for ($i = 1; $i <= $current_page; $i++) {
+                                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                                    // ngược lại hiển thị thẻ a
+                                    if ($i == $current_page) {
+                                        echo '
+                                <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                    } else {
+                                        echo '
+                                <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>
+                                        ';
+                                    }
+                                }
+                            ?>
                             </ul>
                         </nav>
                     </div>
