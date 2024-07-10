@@ -52,26 +52,6 @@
                         <div class="about">
                             <p style="padding-top:105px;margin-left:10px; width:300px"></p>
                             <p style="padding-top:20px;margin-left:10px; width:300px">Thương Hiệu: <span style="font-weight: 600; color:#FF6600"></span></p>
-                            <!-- <div id="myDIV"style="padding-top:10px;margin-left:10px;">
-                                <button class="btn">S</button>
-                                <button class="btn active">M</button>
-                                <button class="btn">L</button>
-                            
-                            </div>
-                            
-                            <script>
-                            // Add active class to the current button (highlight it)
-                            var header = document.getElementById("myDIV");
-                            var btns = header.getElementsByClassName("btn");
-                            for (var i = 0; i < btns.length; i++) {
-                                btns[i].addEventListener("click", function() {
-                                var current = document.getElementsByClassName("active");
-                                current[0].className = current[0].className.replace(" active", "");
-                                this.className += " active";
-                                });
-                            }
-                            </script> -->
-                            
                             <div class="number"style="padding-top:10px;margin-left:10px;">
                                 <span class="number-buy">Số lượng</span>
                                 <input id="num" type="number" value="1" min="1">

@@ -9,6 +9,7 @@
 <?php
 header("content-type:text/html; charset=UTF-8");
 ?>
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -40,7 +41,7 @@ header("content-type:text/html; charset=UTF-8");
             </button>
             <!-- Brand -->
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <h3 class="text-success"><img src="../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
+                <h3 class="text-success"><img src="../../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
             </a>
             
             <!-- Divider -->
@@ -118,7 +119,7 @@ header("content-type:text/html; charset=UTF-8");
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
                         </div>
                         <!-- Actions -->
                         
@@ -140,7 +141,12 @@ header("content-type:text/html; charset=UTF-8");
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -160,7 +166,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -180,7 +191,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -200,7 +216,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -238,7 +259,50 @@ header("content-type:text/html; charset=UTF-8");
                             
                             <tbody>
                                 <tr>
+                                    <?php
+                                        // Lấy danh sách Sản Phẩm
+                                        if (!isset($_GET['page'])) {
+                                            $pg = 1;
+                                            echo 'Bạn đang ở trang: 1';
+                                        } else {
+                                            $pg = $_GET['page'];
+                                            echo 'Bạn đang ở trang: ' . $pg;
+                                        }
 
+                                        try {
+
+                                            if (isset($_GET['page'])) {
+                                                $page = $_GET['page'];
+                                            } else {
+                                                $page = 1;
+                                            }
+                                            $limit = 5;
+                                            $start = ($page - 1) * $limit;
+                                            $sql = "SELECT * FROM collections limit $start,$limit";;
+                                            executeResult($sql);
+                                            // $sql = 'select * from product limit $star,$limit';
+                                            $categoryList = executeResult($sql);
+
+                                            $index = 1;
+                                            foreach ($categoryList as $item) {
+                                                echo '  <tr>
+                                                            <td>' . ($index++) . '</td>
+                                                            <td class="text-heading font-semibold">' . $item['name'] . '</td>                                                         
+                                                            <td>
+                                                                <a href="add.php?id=' . $item['id'] . '">
+                                                                    <button class=" btn btn-warning">Sửa</button> 
+                                                                </a> 
+                                                            </td>
+                                                            <td>            
+                                                            <button class="btn btn-danger" onclick="deleteCategory('.$item['id'].')">Xoá</button>
+                                                            </td>
+                                                        </tr>';
+                                            }
+                                        } catch (Exception $e) {
+                                            die("Lỗi thực thi sql: " . $e->getMessage());
+                                        }
+                                    ?>
+                                    
                                 </tr>
                                 
                             </tbody>
@@ -248,7 +312,31 @@ header("content-type:text/html; charset=UTF-8");
                         
                         <nav aria-label="Page navigation example">
                           <ul class="pagination">
-                          
+                          <?php
+                            $sql = "SELECT * FROM `product`";
+                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                            $result = mysqli_query($conn, $sql);
+                            if (mysqli_num_rows($result)) {
+                                $numrow = mysqli_num_rows($result);
+                                $current_page = ceil($numrow / 5);
+                                // echo $current_page;
+                            }
+                            if (!isset($current_page)) {
+                                $current_page = 1; // Hoặc giá trị mặc định nào đó
+                            }
+                            for ($i = 1; $i <= $current_page; $i++) {
+                                // Nếu là trang hiện tại thì hiển thị thẻ span
+                                // ngược lại hiển thị thẻ a
+                                if ($i == $current_page) {
+                                    echo '
+                            <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                } else {
+                                    echo '
+                            <li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>
+                                    ';
+                                }
+                            }
+                        ?>
                           </ul>
                         </nav>
                     </div>
@@ -258,7 +346,19 @@ header("content-type:text/html; charset=UTF-8");
     </div>
 </div>
     <script type="text/javascript">
-
+		function deleteCategory(id) {
+			var option = confirm('Bạn có chắc chắn muốn xoá danh mục này không?')
+			if(!option) {
+				return;
+			}
+			console.log(id)
+			$.post('ajax.php', {
+				'id': id,
+				'action': 'delete'
+			}, function(data) {
+				location.reload()
+			})
+		}
 	</script>
   
 </body>

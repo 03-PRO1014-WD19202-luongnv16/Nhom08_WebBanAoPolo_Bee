@@ -7,6 +7,47 @@
 <?php
 header("content-type:text/html; charset=UTF-8");
 ?>
+<?php
+require_once('../database/dbhelper.php');
+$id = $name = '';
+if (!empty($_POST['name'])) {
+    $name = '';
+    if (isset($_POST['name'])) {
+        $name = $_POST['name'];
+        $name = str_replace('"', '\\"', $name);
+    }
+    if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+    }
+    if (!empty($name)) {
+        $created_at = $updated_at = date('Y-m-d H:s:i');
+        // Lưu vào DB
+        if ($id == '') {
+            // Thêm danh mục
+            $sql = 'insert into category(name, created_at,updated_at) 
+            values ("' . $name . '","' . $created_at . '","' . $updated_at . '")';
+        } 
+        else {
+            // Sửa danh mục
+            $sql = 'update category set name="' . $name . '", updated_at="' . $updated_at . '" where id=' . $id;
+        }
+        execute($sql);
+        header('Location: index.php');
+        die();
+    }
+}
+
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = 'select * from category where id=' . $id;
+    $category = executeSingleResult($sql);
+    if ($category != null) {
+        $name = $category['name'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -38,7 +79,7 @@ header("content-type:text/html; charset=UTF-8");
             </button>
             <!-- Brand -->
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <h3 class="text-success"><img src="../../images/logo.png" width="40" ><span class="text-info">PoloBee</span>Store</h3> 
+                <h3 class="text-success"><img src=".,./../images/logo.png" width="40" ><span class="text-info">LUXURY</span>STORE</h3> 
             </a>
             <!-- User menu (mobile) -->
             <div class="navbar-user d-lg-none">
@@ -47,7 +88,7 @@ header("content-type:text/html; charset=UTF-8");
                     <!-- Toggle -->
                     <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-parent-child">
-                            <img alt="Image Placeholder" src="../../images/logo.png" class="avatar avatar- rounded-circle">
+                            <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
                             <span class="avatar-child avatar-badge bg-success"></span>
                         </div>
                     </a>
@@ -136,7 +177,7 @@ header("content-type:text/html; charset=UTF-8");
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
+                                <img src="../../images/logo.png" width="60"> Luxury Store</h1>
                         </div>
                         <!-- Actions -->
                         
@@ -158,7 +199,12 @@ header("content-type:text/html; charset=UTF-8");
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Sản Phẩm</span>
                                         
                                         <span class="h3 font-bold mb-0">
-
+                                            <?php
+                                        $sql = "SELECT * FROM `product`";
+                                        $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                        $result = mysqli_query($conn, $sql);
+                                        echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                        ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -178,7 +224,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Khách Hàng</span>
                                         <span class="h3 font-bold mb-0">
-   
+                                            <?php
+                                            $sql = "SELECT * FROM `user`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -198,7 +249,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Đơn Hàng</span>
                                         <span class="h3 font-bold mb-0">
-                 
+                                            <?php
+                                            $sql = "SELECT * FROM `order_details`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -218,7 +274,12 @@ header("content-type:text/html; charset=UTF-8");
                                     <div class="col">
                                         <span class="h6 font-semibold text-muted text-sm d-block mb-2">Danh Mục</span>
                                         <span class="h3 font-bold mb-0">
-          
+                                            <?php
+                                            $sql = "SELECT * FROM `category`";
+                                            $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+                                            $result = mysqli_query($conn, $sql);
+                                            echo '<span>' . mysqli_num_rows($result) . '</span>';
+                                            ?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -242,13 +303,18 @@ header("content-type:text/html; charset=UTF-8");
                             <form method="POST">
                                 <div class="form-group">
                                     <label for="name">Tên Danh Mục:</label>
-                                    <input type="text" id="id" name="id" value="" hidden='true'>
-                                    <input required="true" type="text" class="form-control" id="name" name="name" value="">
+                                    <input type="text" id="id" name="id" value="<?= $id ?>" hidden='true'>
+                                    <input required="true" type="text" class="form-control" id="name" name="name" value="<?= $name ?>">
                                 </div>
                                 <hr class="navbar-divider my-3 opacity-20">
-                                <button class="btn btn-success">Lưu</button>
-          
-                                <a href="" class="btn btn-warning">Back</a>
+                                <button class="btn btn-success" onclick="addProduct()">Lưu</button>
+                                <?php
+                                $previous = "javascript:history.go(-1)";
+                                if (isset($_SERVER['HTTP_REFERER'])) {
+                                    $previous = $_SERVER['HTTP_REFERER'];
+                                }
+                                ?>
+                                <a href="<?= $previous ?>" class="btn btn-warning">Back</a>
                             </form>
                         </div>
                         </table>
@@ -259,7 +325,13 @@ header("content-type:text/html; charset=UTF-8");
     </div>
 </div>
     <script type="text/javascript">
-
+        function addProduct()
+        {
+            var option = confirm('Thêm danh mục thành công')
+            if (!option) {
+                return;
+            }
+        }
     </script>
   
 </body>

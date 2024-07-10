@@ -364,7 +364,7 @@
                                                         Tổng Đơn Hàng
                                                         <span>
                                                             <strong>
-                                                                <span class="amount">span> VNĐ</span></span>
+                                                                <span class="amount">$ VNĐ</span></span>
                                                             </strong>
                                                         </span>
                                                     </p>
