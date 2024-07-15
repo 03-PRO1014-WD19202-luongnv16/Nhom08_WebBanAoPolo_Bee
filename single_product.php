@@ -151,7 +151,7 @@ if (isset($_GET['id'])) {
             </section>
             <section class="restaurants">
                 <div class="title">
-                    <h1>Các sản phẩm khác tại <span class="green" style="color: #0099FF;">LUXURY STORE</span></h1>
+                    <h1>Các sản phẩm khác tại <span class="green" style="color: #0099FF;">POLOBEE STORE</span></h1>
                 </div>
                 <div class="product-restaurants">
                     <div class="row">
