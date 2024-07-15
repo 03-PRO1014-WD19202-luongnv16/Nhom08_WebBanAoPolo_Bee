@@ -16,8 +16,8 @@ require_once('database/dbhelper.php');?>
             <div class="main-slider an-si">
                 <div class="bend niceties preview-2 hm-ver-1">
                     <div id="ensign-nivoslider-2" class="slides">	
-                        <img src="/Web/images/banner_3.jpg" alt="" title="#slider-direction-3"  />
-                        <img src="/Web/images/banner_1.jpg" alt="" title="#slider-direction-1"  />
+                        <img src="" alt="" title="#slider-direction-3"  />
+                        <img src="" alt="" title="#slider-direction-1"  />
                     </div>
                     <!-- direction 1 -->
                     <div id="slider-direction-3" class="t-cn slider-direction Builder">
@@ -152,20 +152,64 @@ require_once('database/dbhelper.php');?>
 						<div class="product-tab nav nav-tabs">
                         <ul>
                             <li class="active"><a data-toggle="tab" href="#all">Tất cả sản phẩm</a></li>
+                            <?php
+                            $categories = executeResult("SELECT * FROM category");
+                            foreach ($categories as $category) {
+                                echo '<li><a data-toggle="tab" href="#' . $category['name'] . '">' . $category['name'] . '</a></li>';
+                            }
+                            ?>
                         </ul>
-							<!-- <ul>                                        
-								<li class="active"><a data-toggle="tab" href="#all">all shop</a></li>
-								<li><a data-toggle="tab" href="#clothings">clothings</a></li>
-								<li><a data-toggle="tab" href="#shoes">shoes</a></li>
-								<li><a data-toggle="tab" href="#bags">bags</a></li>
-								<li><a data-toggle="tab" href="#accessories">accessories</a></li>
-							</ul> -->
 						</div>
 					</div>
 				</div>
 				<div class="row tab-content">
                     <div class="tab-pane  fade in active" id="all">
                             <div id="tab-carousel-1" class="re-owl-carousel owl-carousel product-slider owl-theme">
+                            <?php
+                                
+                                $sql = "SELECT * FROM product";
+                                $feature_product = executeResult($sql);
+                                
+                                $used_feproducts = array ();
+                                foreach ($feature_product as $item) {
+                                    if (!in_array ($item ['title'], $used_feproducts)) {  //check if the product id is not in the new array
+                                        array_push ($used_feproducts, $item ['title']); //add the product id to the new array
+                                        echo '
+                                <div class="col-xs-12">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <div class="pro-type">
+                                                <span>sale</span>
+                                            </div>
+                                            <a href="single_product.php?id=' . $item['id'] . '"> 
+                                                <img class="thumbnail" src="admin/product/' . $item['thumbnail'] . '" alt="' . $item['title'] . '" />
+                                                <img class="secondary-image" alt="' . $item['title'] . '" src="admin/product/' . $item['thumbnail'] . '">
+                                            </a>
+                                        </div>
+                                        <div class="product-dsc">
+                                            <h3><a href="#">' . $item['title'] . '</a></h3>
+                                            <div class="star-price">
+                                                <span class="price-left">' . number_format($item['price'], 0, ',', '.') . ' VNĐ</span>
+                                                <span class="star-right">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half-o"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="actions-btn">
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>';
+                                        
+                                        
+                                        }
+                                }
+                            ?>
                             </div>
                             
                     </div>
