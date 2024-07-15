@@ -51,7 +51,7 @@
                         <div class="col-md-12 text-center">
                             <div class="con-text">
                                 <h2 class="page-title">Shop</h2>
-                                <p><a href="#">Home</a> | shop</p>
+                                <p><a href="#">Home</a> | Shop </p>
                             </div>
                         </div>
                     </div>
