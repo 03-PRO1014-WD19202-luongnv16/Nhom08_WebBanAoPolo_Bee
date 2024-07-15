@@ -29,7 +29,7 @@
                         <div class="col-md-12 text-center">
                             <div class="con-text">
                                 <h2 class="page-title">Shop</h2>
-                                <p><a href="#">Home</a> | shop</p>
+                                <p><a href="#">Home</a> | Shop </p>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="col-md-12 col-xs-12">
                         <div class="tb-login-form ">
                             <h5 class="tb-title">Đăng ký</h5>
-                            <p>Đăng ký tài khoản để có thể mua sắm tại Luxury Store</p>
+                            <p>Đăng ký tài khoản để có thể mua sắm tại PoloBee Store</p>
                             <!-- <div class="tb-social-login">
                                 <a class="tb-facebook-login" href="#">
                                     <i class="fa fa-facebook"></i>
@@ -109,32 +109,6 @@
                             </form>
                         </div>
                     </div>
-                    <!-- <div class="col-md-6 col-xs-12">
-                        <div class="tb-login-form res">
-                            <h5 class="tb-title">Create a new account</h5>
-                            <p>Hello, Welcome your to account</p>
-                            <form action="#">
-                                <p class="checkout-coupon top log a-an">
-                                    <label class="l-contact">
-                                        Email Address
-                                        <em>*</em>
-                                    </label>
-                                    <input type="email">
-                                </p>
-                                <p class="login-submit5 ress">
-                                    <input value="SignUp" class="button-primary" type="submit">
-                                </p>
-                            </form>
-                            <div class="tb-info-login ">
-                                <h5 class="tb-title4">SignUp today and you'll be able to:</h5>
-                                <ul>
-                                    <li>Speed your way through the checkout.</li>
-                                    <li>Track your orders easily.</li>
-                                    <li>Keep a record of all your purchases.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
