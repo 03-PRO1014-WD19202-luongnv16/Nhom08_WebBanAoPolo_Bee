@@ -139,12 +139,18 @@ require_once('database/dbhelper.php');
                                             <li><a href="index.php">Home</a></li>
                                             <li><a href="#">Shop</a>
                                                 <ul>
-
+                                                    
                                                 </ul>
                                             </li>
                                             <li><a href="#">Collection</a>
                                                 <ul>
-
+                                                <?php
+                                                    $sql = "SELECT * from collections";
+                                                    $result = executeResult($sql);
+                                                    foreach($result as $item){
+                                                        echo '<li><a href="collection.php?id_sanpham=' . $item['id'] . '">' . $item['name'] . '</a></li>';
+                                                    }
+                                                ?>
                                                 </ul>
                                             </li>
                                             <li><a href="AboutUs.php">About US</a></li>

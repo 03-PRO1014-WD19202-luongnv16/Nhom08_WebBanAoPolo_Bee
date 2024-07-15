@@ -177,7 +177,7 @@ if (isset($_GET['id'])) {
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../../images/logo.png" width="60"> Luxury Store</h1>
+                                <img src="../../images/logo.png" width="60"> PoloBee Store</h1>
                         </div>
                         <!-- Actions -->
                         
