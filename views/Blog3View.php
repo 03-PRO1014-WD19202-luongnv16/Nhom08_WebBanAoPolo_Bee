@@ -170,9 +170,9 @@ hr{
 </section>
 <body>
 
-<h2><i class="fas fa-star"></i>  THÔNG TIN CHƯƠNG TRÌNH THẺ THÀNH VIÊN DIRTYCOINS</h2>
+<h2><i class="fas fa-star"></i>  THÔNG TIN CHƯƠNG TRÌNH THẺ THÀNH VIÊN PoloBee</h2>
 <h1>Định nghĩa và quy định về thẻ:</h1></br>
-<h5>Thẻ thành viên DirtyCoins là tài sản của công ty TNHH DirtyCoins. Bằng việc sử dụng thẻ, bạn được xem như đã đọc, hiểu rõ và chấp nhận các Điều khoản & Điều kiện của DirtyCoins .</h5></br>
+<h5>Thẻ thành viên PoloBee là tài sản của công ty TNHH DirtyCoins. Bằng việc sử dụng thẻ, bạn được xem như đã đọc, hiểu rõ và chấp nhận các Điều khoản & Điều kiện của DirtyCoins .</h5></br>
 <h5>Vui lòng xuất trình thẻ trước khi giao dịch để được bảo đảm quyền lợi tối đa. Chúng tôi sẽ không giải quyết nếu hoá đơn đã được in ra trước khi xuất trình thẻ thành viên hoặc bạn quên mang thẻ theo.</h5></br>
 <h5>Thẻ thành viên DirtyCoins chỉ dành cho chủ sở hữu được ghi nhận khi đăng ký trên hệ thống, không được chuyển nhượng dưới mọi hình thức. Nếu phát hiện ra bất kì dấu hiệu vi phạm, chúng tôi sẽ tiến hành khoá thẻ vì mục đích bảo mật mà không cần báo trước</h5></br>
 <h1>Điều kiện đăng ký thẻ thành viên DirtyCoins:</h1></br>

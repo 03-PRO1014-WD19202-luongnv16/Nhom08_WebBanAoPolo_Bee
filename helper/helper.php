@@ -27,10 +27,8 @@ function getGet($key) {
 function getLoggedInUser() {
 	if(isset($_COOKIE['tendangnhap'])) {
 		$user = $_COOKIE['tendangnhap'];
-		//lay bien ket noi
 		$conn = Connection::getInstance();
 		$query = $conn->query("select * from user where tendangnhap='$user'");
-		//tra ve mot ban ghi
 		return $query->fetch();
 	}
 
@@ -40,10 +38,8 @@ function getLoggedInUser() {
 function getLoggedInAdmin() {
 	if(isset($_COOKIE['tendangnhap_admin'])) {
 		$user = $_COOKIE['tendangnhap_admin'];
-		//lay bien ket noi
 		$conn = Connection::getInstance();
 		$query = $conn->query("select * from user where tendangnhap='$user'");
-		//tra ve mot ban ghi
 		return $query->fetch();
 	}
 

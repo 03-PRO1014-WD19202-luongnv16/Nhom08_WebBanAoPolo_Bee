@@ -1,16 +1,12 @@
 
 <?php
 	class Controller{
-		//bien luu noi dung cua file doc vao
 		public $view = NULL;
-		//bien luu duong dan file layout
 		public $layoutPath = NULL;
-		//ham load file de hien thi len trang
 		public function loadView($fileName,$data = NULL){
 			if(file_exists("views/$fileName")){
 				if($data != NULL)
 					extract($data);
-				//doc noi dung cua $fileName de nem du lieu vao bien $this->view
 				ob_start();
 					include "views/$fileName";
 					$this->view = ob_get_contents();

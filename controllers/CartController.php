@@ -1,11 +1,8 @@
 <?php
 	include "models/CartModel.php";
 	class CartController extends Controller{
-		//ke thua class CartModel
 		use CartModel;
-		//ham tao
 		public function __construct(){
-			//neu gio hang chua ton tai thi khoi tao no
 			if(isset($_SESSION["cart"]) == false)
 				$_SESSION["cart"] = array();
 		}
@@ -14,7 +11,6 @@
 			$id = isset($_GET["id"]) ? $_GET["id"] : 0;
 			//goi ham cartAdd de them san pham vao gio hang
 			$this->cartAdd($id);
-			//quay tro lai trang gio hang
 			header("location:index.php?controller=cart");
 		}
 		//hien thi gio hang

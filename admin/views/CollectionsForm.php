@@ -34,7 +34,7 @@
             </button>
             <!-- Brand -->
             <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="#">
-                <h3 class="text-success"><img src="../assets/images/logo.png" width="40" ><span class="text-info">POLOBEE</span>STORE</h3>
+                <h3 class="text-success"><img src="../assets/images/logo.jpg" width="40" ><span class="text-info">POLOBEE</span>STORE</h3>
             </a>
             <!-- User menu (mobile) -->
             <div class="navbar-user d-lg-none">
@@ -131,7 +131,7 @@
                         <div class="col-sm-6 col-12 mb-4 mb-sm-0">
                             <!-- Title -->
                             <h1 class="h2 mb-0 ls-tight">
-                                <img src="../assets/images/logo.png" width="60"> POLOBEE Store</h1>
+                                <img src="../assets/images/logo.jpg" width="60"> POLOBEE Store</h1>
                         </div>
                         <!-- Actions -->
 

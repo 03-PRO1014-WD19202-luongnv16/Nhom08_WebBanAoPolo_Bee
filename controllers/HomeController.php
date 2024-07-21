@@ -1,10 +1,10 @@
 <?php
-	//load file model
 	include "models/HomeModel.php";
-	class HomeController extends Controller{
-		//ke thua HomeModel
+	class HomeController extends Controller
+	{
 		use HomeModel;
-		public function index(){
+		public function index()
+		{
 			$search = isset($_GET["search"]) ? $_GET["search"] : 0;
 			if ($search) {
 				header("location:index.php?controller=products&action=categories&search=$search");
@@ -13,4 +13,4 @@
 			$this->loadView("HomeView.php");
 		}
 	}
- ?>
+?>
