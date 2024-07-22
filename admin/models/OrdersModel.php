@@ -6,13 +6,13 @@
 			$page = isset($_GET["p"]) && $_GET["p"] > 0 ? $_GET["p"]-1 : 0;
 			$from = $page * $recordPerPage;
 			$conn = Connection::getInstance();
-			$query = $conn->query("SELECT * from oders, order_details, product
-                                            where order_details.order_id=oders.id and product.id=order_details.product_id ORDER BY order_date DESC limit $from, $recordPerPage");
+			$query = $conn->query("SELECT * from orders, order_details, product
+                                            where order_details.order_id=orders.id and product.id=order_details.product_id ORDER BY order_date DESC limit $from, $recordPerPage");
 			return $query->fetchAll();
 		}
 		public function modelTotal(){
 			$conn = Connection::getInstance();
-			$query = $conn->query("select id from oders");
+			$query = $conn->query("select id from orders");
 			return $query->rowCount();
 		}
 
@@ -51,8 +51,8 @@
 
 		public function modelGetRecord($id){
 			$conn = Connection::getInstance();
-			$query = $conn->query("SELECT * from oders, order_details, product
-                                                where order_details.order_id=oders.id and product.id=order_details.product_id and order_id=$id");
+			$query = $conn->query("SELECT * from orders, order_details, product
+                                                where order_details.order_id=orders.id and product.id=order_details.product_id and order_id=$id");
 			return $query->fetchAll();
 		}
 	}

@@ -17,7 +17,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="tb-login-form ">
                     <h5 class="tb-title">Đăng nhập</h5>
-                    <p>Đăng nhập tài khoản để trải nghiệm mua sắm tại POLOBEEe</p>
+                    <p>Đăng nhập tài khoản để trải nghiệm mua sắm tại POLOBEE</p>
                   
                     <form action="index.php?controller=account&action=loginPost" method="POST">
                         <p class="checkout-coupon top log a-an">
