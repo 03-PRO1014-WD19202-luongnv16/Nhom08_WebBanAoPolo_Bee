@@ -50,8 +50,8 @@
 			}
 			$limit = 10;
 			$start = ($page - 1) * $limit;
-			$query = $conn->query("SELECT * from orders, order_details, product
-                where order_details.order_id=orders.id and product.id=order_details.product_id ORDER BY order_date DESC limit $start,$limit ");
+			$query = $conn->query("SELECT * from oders, order_details, product
+                where order_details.order_id=oders.id and product.id=order_details.product_id ORDER BY order_date DESC limit $start,$limit ");
 			$result = $query->fetchAll();
 			return $result;
 		}

@@ -1,6 +1,5 @@
 <?php
 	trait ProductsModel{
-		//lay danh sach cac ban ghi, co phan trang
 		public function modelRead($recordPerPage){
 			$page = 1;
 			if (isset($_GET['page'])) {
@@ -8,31 +7,22 @@
 			}
 			$limit = 5;
 			$start = ($page - 1) * $limit;
-			//---
-			//lay bien ket noi
 			$conn = Connection::getInstance();
 			$query = $conn->query("SELECT product.*, category.name as category_name, collections.name as collection_name FROM product, category, collections
 				where product.id_category = category.id
                 AND product.id_sanpham = collections.id limit $start,$limit");
-			//lay tat ca ket qua tra ve
 			$result = $query->fetchAll();
-			//---
 			return $result;
 		}
-		//ham tinh tong so ban ghi
 		public function modelTotal(){
-			//lay bien ket noi
 			$conn = Connection::getInstance();
 			$query = $conn->query("select id from product");
 			//ham rowCount: dem so ket qua tra ve
 			return $query->rowCount();
 		}
-		//lay mot ban ghi tuong ung voi id truyen vao
 		public function modelGetRecord($id){
-			//lay bien ket noi
 			$conn = Connection::getInstance();
 			$query = $conn->query("select * from product where id=$id");
-			//tra ve mot ban ghi
 			return $query->fetch();
 		}
 		 
@@ -49,11 +39,11 @@
 			$thumbnail_4 = $product->thumbnail_4;
 			$thumbnail_5 = $product->thumbnail_5;
 			$thumbnail_in_database = $thumbnail; // Gán giá trị cũ cho biến mới
-			$thumbnail_in_database = $thumbnail_1; // Gán giá trị cũ cho biến mới
-			$thumbnail_in_database = $thumbnail_2; // Gán giá trị cũ cho biến mới
-			$thumbnail_in_database = $thumbnail_3; // Gán giá trị cũ cho biến mới
-			$thumbnail_in_database = $thumbnail_4; // Gán giá trị cũ cho biến mới
-			$thumbnail_in_database = $thumbnail_5; // Gán giá trị cũ cho biến mới
+			$thumbnail_in_database = $thumbnail_1;
+			$thumbnail_in_database = $thumbnail_2;
+			$thumbnail_in_database = $thumbnail_3;
+			$thumbnail_in_database = $thumbnail_4;
+			$thumbnail_in_database = $thumbnail_5;
 			$content = $product->content;
 			$id_category = $product->id_category;
 			$id_sanpham = $product->id_sanpham;
@@ -85,20 +75,14 @@
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file   = $target_dir . basename($_FILES["thumbnail"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
 						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check = getimagesize($_FILES["thumbnail"]["tmp_name"]);
 							if ($check !== false) {
 								echo "Đây là file ảnh - " . $check["mime"] . ".";
@@ -108,7 +92,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -120,7 +104,7 @@
 							die;
 						}
 
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
+						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ
 						if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $target_file)) {
 							$thumbnail = $target_file;
 						} else {
@@ -129,29 +113,21 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail = $thumbnail_in_database;
 				}
-				// Kiểm tra có dữ liệu thumbnail_1 trong $_FILES không
 				if (isset($_FILES["thumbnail_1"])) {
 					if ($_FILES["thumbnail_1"]['error'] == 0 && $_FILES["thumbnail_1"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_1    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_1   = $target_dir_1 . basename($_FILES["thumbnail_1"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType_1 = pathinfo($target_file_1, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
 						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_1 = getimagesize($_FILES["thumbnail_1"]["tmp_name"]);
 							if ($check_1 !== false) {
 								echo "Đây là file ảnh - " . $check_1["mime"] . ".";
@@ -161,7 +137,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail_1"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -172,8 +148,6 @@
 							echo "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
 							die;
 						}
-
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail_1"]["tmp_name"], $target_file_1)) {
 							$thumbnail_1 = $target_file_1;
 						} else {
@@ -182,30 +156,22 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail_1 = $thumbnail_in_database;
 				}
 
-				// Kiểm tra có dữ liệu thumbnail_2 trong $_FILES không
 				if (isset($_FILES["thumbnail_2"])) {
 					if ($_FILES["thumbnail_2"]['error'] == 0 && $_FILES["thumbnail_2"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_2    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_2   = $target_dir_2 . basename($_FILES["thumbnail_2"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType_2 = pathinfo($target_file_2, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
 						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_2 = getimagesize($_FILES["thumbnail_2"]["tmp_name"]);
 							if ($check_2 !== false) {
 								echo "Đây là file ảnh - " . $check_2["mime"] . ".";
@@ -215,7 +181,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail_2"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -226,8 +192,6 @@
 							echo "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
 							die;
 						}
-
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail_2"]["tmp_name"], $target_file_2)) {
 							$thumbnail_2 = $target_file_2;
 						} else {
@@ -236,30 +200,23 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail_2 = $thumbnail_in_database;
 				}
 
-				// Kiểm tra có dữ liệu thumbnail_3 trong $_FILES không
+
 				if (isset($_FILES["thumbnail_3"])) {
 					if ($_FILES["thumbnail_3"]['error'] == 0 && $_FILES["thumbnail_3"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_3    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_3   = $target_dir_3 . basename($_FILES["thumbnail_3"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType_1 = pathinfo($target_file_3, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
 						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_1 = getimagesize($_FILES["thumbnail_3"]["tmp_name"]);
 							if ($check_1 !== false) {
 								echo "Đây là file ảnh - " . $check_1["mime"] . ".";
@@ -269,7 +226,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail_3"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -281,7 +238,6 @@
 							die;
 						}
 
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail_3"]["tmp_name"], $target_file_3)) {
 							$thumbnail_3 = $target_file_3;
 						} else {
@@ -290,30 +246,23 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail_3 = $thumbnail_in_database;
 				}
 
-				// Kiểm tra có dữ liệu thumbnail_4 trong $_FILES không
 				if (isset($_FILES["thumbnail_4"])) {
 					if ($_FILES["thumbnail_4"]['error'] == 0 && $_FILES["thumbnail_4"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_4    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_4   = $target_dir_4 . basename($_FILES["thumbnail_4"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType_1 = pathinfo($target_file_4, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
 
 						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_1 = getimagesize($_FILES["thumbnail_4"]["tmp_name"]);
 							if ($check_1 !== false) {
 								echo "Đây là file ảnh - " . $check_1["mime"] . ".";
@@ -323,7 +272,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail_4"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -335,7 +284,6 @@
 							die;
 						}
 
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail_4"]["tmp_name"], $target_file_4)) {
 							$thumbnail_4 = $target_file_4;
 						} else {
@@ -344,30 +292,21 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail_4 = $thumbnail_in_database;
 				}
 
-				// Kiểm tra có dữ liệu thumbnail_5 trong $_FILES không
 				if (isset($_FILES["thumbnail_5"])) {
 					if ($_FILES["thumbnail_5"]['error'] == 0 && $_FILES["thumbnail_5"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_5    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_5   = $target_dir_5 . basename($_FILES["thumbnail_5"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType_1 = pathinfo($target_file_5, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
-						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_1 = getimagesize($_FILES["thumbnail_5"]["tmp_name"]);
 							if ($check_1 !== false) {
 								echo "Đây là file ảnh - " . $check_1["mime"] . ".";
@@ -377,7 +316,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail_5"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -389,7 +328,6 @@
 							die;
 						}
 
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail_5"]["tmp_name"], $target_file_5)) {
 							$thumbnail_5 = $target_file_5;
 						} else {
@@ -398,7 +336,6 @@
 						}
 					}
 				} else {
-					// Nếu không có file mới, giữ nguyên giá trị cũ trong cơ sở dữ liệu
 					$thumbnail_5 = $thumbnail_in_database;
 				}
 
@@ -457,20 +394,13 @@
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file   = $target_dir . basename($_FILES["thumbnail"]["name"]);
-
 						//Lấy phần mở rộng của file (jpg, png, ...)
 						$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-
-						// Cỡ lớn nhất được upload (bytes)
 						$maxfilesize   = 800000;
-
-						////Những loại file được phép upload
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check = getimagesize($_FILES["thumbnail"]["tmp_name"]);
 							if ($check !== false) {
 								echo "Đây là file ảnh - " . $check["mime"] . ".";
@@ -480,7 +410,7 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
+						// Kiểm tra kích thước file upload
 						if ($_FILES["thumbnail"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -492,7 +422,6 @@
 							die;
 						}
 
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
 						if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $target_file)) {
 							$thumbnail = $target_file;
 						} else {
@@ -501,13 +430,11 @@
 						}
 					}
 				}
-				// Kiểm tra có dữ liệu thumbnail_1 trong $_FILES không
 				if (isset($_FILES["thumbnail_1"])) {
 					if ($_FILES["thumbnail_1"]['error'] == 0 && $_FILES["thumbnail_1"]["size"] > 0) {
 
 						//Thư mục bạn sẽ lưu file upload
 						$target_dir_1    = "../assets/images/uploads/";
-						//Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
 						$target_file_1   = $target_dir_1 . basename($_FILES["thumbnail_1"]["name"]);
 
 						//Lấy phần mở rộng của file (jpg, png, ...)
@@ -520,7 +447,6 @@
 						$allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
 
 						if (isset($_POST["submit"])) {
-							//Kiểm tra xem có phải là ảnh bằng hàm getimagesize
 							$check_1 = getimagesize($_FILES["thumbnail_1"]["tmp_name"]);
 							if ($check_1 !== false) {
 								echo "Đây là file ảnh - " . $check_1["mime"] . ".";
@@ -530,7 +456,6 @@
 							}
 						}
 
-						// Kiểm tra kích thước file upload cho vượt quá giới hạn cho phép
 						if ($_FILES["thumbnail_1"]["size"] > $maxfilesize) {
 							echo "Không được upload ảnh lớn hơn $maxfilesize (bytes).";
 							die;
@@ -541,8 +466,7 @@
 							echo "Chỉ được upload các định dạng JPG, PNG, JPEG, GIF";
 							die;
 						}
-
-						// Xử lý di chuyển file tạm ra thư mục cần lưu trữ, dùng hàm move_uploaded_file
+						
 						if (move_uploaded_file($_FILES["thumbnail_1"]["tmp_name"], $target_file_1)) {
 							$thumbnail_1 = $target_file_1;
 						} else {

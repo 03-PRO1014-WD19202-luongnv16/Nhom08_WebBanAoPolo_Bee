@@ -1,15 +1,11 @@
 <?php
-	//load file model
 	include "models/ProductsModel.php";
 	class ProductsController extends Controller{
-		//ke thua class ProductsModel
 		use ProductsModel;
-		//liet ke so ban ghi
 		public function categories(){
 			$data = $this->modelRead();
 			$this->loadView("ProductsCategoriesView.php",["data"=>$data]);
 		}
-		//liet ke so ban ghi
 		public function collection(){
 			$data = $this->modelRead();
 			$this->loadView("ProductsCollectionView.php",["data"=>$data]);
@@ -27,18 +23,15 @@
 		public function rating(){
 			$id = isset($_GET["id"]) ? $_GET["id"] : 0;
 			$star = isset($_GET["star"]) ? $_GET["star"] : 0;
-			//insert thong tin vao bao rating
 			$conn = Connection::getInstance();
 			$query = $conn->prepare("insert into rating set product_id=:var_product_id, star=:var_star");
 			$query->execute(array("var_product_id"=>$id,"var_star"=>$star));
-			//di chuyen den trang chi tiet san pham
 			header("location:index.php?controller=products&action=detail&id=$id");
 		}
 		//lay so sao tuong ung voi id truyen vao
 		public function getStar($id,$star){
 			$conn = Connection::getInstance();
 			$query = $conn->query("select id from rating where product_id=$id and star=$star");
-			//dem so ban ghi tra ve
 			return $query->rowCount();
 		}
 		public function ajax(){
