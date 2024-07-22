@@ -52,5 +52,5 @@
 			//quay tro lai mvc users
 			header("location:index.php?controller=users");
 		}
-	}
+	} 
  ?>
