@@ -95,7 +95,7 @@
 
 
 				//insert ban ghi vao orders, lay order_id vua moi insert
-				$query = $conn->prepare("insert into oders set fullname=:fullname, email=:email, phone_number=:phone_number, address=:address, note=:note, order_date=now()");
+				$query = $conn->prepare("insert into orders set fullname=:fullname, email=:email, phone_number=:phone_number, address=:address, note=:note, order_date=now()");
 				$query->execute(array("fullname"=>$fullname,"email"=>$email,"phone_number"=>$phone_number,"address"=>$address,"note"=>$note));
 				
 				$orderId = $conn->lastInsertId();

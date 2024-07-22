@@ -101,7 +101,7 @@ section.main section.recently {
     <div class="main-slider an-si">
         <div class="bend niceties preview-2 hm-ver-1">
             <div id="ensign-nivoslider-2" class="slides">
-                <img src="assets/images/banner_3.jpg" alt="" title="#slider-direction-3"  />
+                <img src="assets/images/banner_3.webp" alt="" title="#slider-direction-3"  />
                 <img src="assets/images/banner_1.jpg" alt="" title="#slider-direction-1"  />
             </div>
             <!-- direction 1 -->
@@ -113,11 +113,11 @@ section.main section.recently {
                     </div>
                     <!-- layer 2 -->
                     <div class="layer-2">
-                        <h2 class="title6">Luxury Fashion</h2>
+                        <h2 class="title6">Polo Fashion</h2>
                     </div>
                     <!-- layer 2 -->
                     <div class="layer-2">
-                        <p class="title0">giá cực ưu đãi!</p>
+                        <p class="title0">Giá cực ưu đãi!</p>
                     </div>
                     <!-- layer 3 -->
                     <div class="layer-3">
@@ -133,7 +133,7 @@ section.main section.recently {
                     </div>
                     <!-- layer 2 -->
                     <div class="layer-2">
-                        <h2 class="title6">Luxury Fashion</h2>
+                        <h2 class="title6">Polo Fashion</h2>
                     </div>
                     <!-- layer 2 -->
                     <div class="layer-2">
@@ -159,7 +159,7 @@ section.main section.recently {
                             <img alt="" src="assets/images/banner/2.jpg">
                             <div>
                                 <h2>
-                                    Luxury
+                                    Polo
                                     <span>Store</span>
                                 </h2>
                                 <p>Duyên dáng sang trọng, chất lượng vượt thời gian - POLOBEE, nơi phong cách trở thành đẳng cấp.</p>
@@ -168,10 +168,10 @@ section.main section.recently {
                     </div>
                     <div class="banner-box res-btm">
                         <a href="index.php?controller=products&action=categories&category_id=1">
-                            <img alt="" src="assets/images/banner/3.jpg">
+                            <img alt="" src="assets/images/banner/3.png">
                             <div>
                                 <h2>
-                                    Luxury
+                                Polo
                                     <span>Store</span>
                                 </h2>
                                 <p>Duyên dáng sang trọng, chất lượng vượt thời gian - POLOBEE, nơi phong cách trở thành đẳng cấp.</p>
@@ -185,7 +185,7 @@ section.main section.recently {
                             <img alt="" src="assets/images/banner/1.jpg">
                             <div>
                                 <h2>
-                                    Luxury
+                                Polo
                                     <span>Store</span>
                                 </h2>
                                 <p>Duyên dáng sang trọng, chất lượng vượt thời gian - POLOBEE, nơi phong cách trở thành đẳng cấp.</p>
@@ -199,7 +199,7 @@ section.main section.recently {
                             <img alt="" src="assets/images/banner/4.jpg">
                             <div>
                                 <h2>
-                                    Luxury
+                                Polo
                                     <span>Store</span>
                                 </h2>
                                 <p>Duyên dáng sang trọng, chất lượng vượt thời gian - POLOBEE, nơi phong cách trở thành đẳng cấp.</p>
@@ -208,10 +208,10 @@ section.main section.recently {
                     </div>
                     <div class="banner-box">
                         <a href="index.php?controller=products&action=categories&category_id=4">
-                            <img alt="" src="assets/images/banner/5.jpg">
+                            <img alt="" src="assets/images/banner/5.webp">
                             <div>
                                 <h2>
-                                    Luxury
+                                Polo
                                     <span>Store</span>
                                 </h2>
                                 <p>Duyên dáng sang trọng, chất lượng vượt thời gian - POLOBEE, nơi phong cách trở thành đẳng cấp.</p>
@@ -346,7 +346,7 @@ section.main section.recently {
     
     <div class="box-left" >
         <h2>
-            <span>SPRING OF THE ¥ </span>
+            <span>POLOBEE SUMMER</span>
         </h2>
         <a href="thucdon_2.php?id_sanpham=2">
             <button>Mua ngay </button>
@@ -434,7 +434,7 @@ section.main section.recently {
                 <div class="col-xs-12">
                     <div class="blog-container-inner">
                         <div class="post-thumb">
-                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/new1.jpg"></a>
+                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/banner_1.jpg"></a>
                         </div>
                         <div class="visual-inner">
                             <h2 class="blog-title">
@@ -468,7 +468,7 @@ section.main section.recently {
                 <div class="col-xs-12">
                     <div class="blog-container-inner">
                         <div class="post-thumb">
-                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/new2.jpg"></a>
+                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/banner_3.webp"></a>
                         </div>
                         <div class="visual-inner">
                             <h2 class="blog-title">
@@ -500,7 +500,7 @@ section.main section.recently {
                 <div class="col-xs-12">
                     <div class="blog-container-inner">
                         <div class="post-thumb">
-                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/new3.jpg"></a>
+                            <a href="blog.html"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/vip.webp"></a>
                         </div>
                         <div class="visual-inner">
                             <h2 class="blog-title">
@@ -533,7 +533,7 @@ section.main section.recently {
                 <div class="col-xs-12">
                     <div class="blog-container-inner">
                         <div class="post-thumb">
-                            <a href="#"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/new1.jpg"></a>
+                            <a href="#"><img class="attachment-blog-list wp-post-image" alt="blog-2" src="assets/images/banner_1.jpg"></a>
                         </div>
                         <div class="visual-inner">
                             <h2 class="blog-title">

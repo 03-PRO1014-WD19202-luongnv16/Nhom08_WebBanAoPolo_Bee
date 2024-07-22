@@ -92,8 +92,8 @@
                                     <li>
                                         <a href="#">Blog</a>
                                         <ul>
-                                            <li><a href="index.php?controller=blog&type=1">7 TIPS PHỐI ĐỒ VỚI VARSITY JACKET</a></li>
-                                            <li><a href="index.php?controller=blog&type=2">CÚ BẮT TAY ĐẬM CHẤT VĂN HÓA ĐƯỜNG PHỐ</a></li>
+                                            <li><a href="index.php?controller=blog&type=1">POLOBEE</a></li>
+                                            <li><a href="index.php?controller=blog&type=2">XU HƯỚNG POLO</a></li>
                                             <li><a href="index.php?controller=blog&type=3">THÔNG TIN CHƯƠNG TRÌNH</a></li>
                                         </ul>
                                     </li>
@@ -133,8 +133,8 @@
                                         <li>
                                             <a href="#">Blog</a>
                                             <ul>
-                                                <li><a href="index.php?controller=blog&type=1">7 TIPS PHỐI ĐỒ VỚI VARSITY JACKET</a></li>
-                                                <li><a href="index.php?controller=blog&type=2">CÚ BẮT TAY ĐẬM CHẤT VĂN HÓA ĐƯỜNG PHỐ</a></li>
+                                                <li><a href="index.php?controller=blog&type=1">POLO BEE</a></li>
+                                                <li><a href="index.php?controller=blog&type=2">SỰ RA ĐỜI CỦA POLOBEE</a></li>
                                                 <li><a href="index.php?controller=blog&type=3">THÔNG TIN CHƯƠNG TRÌNH</a></li>
                                             </ul>
                                         </li>
