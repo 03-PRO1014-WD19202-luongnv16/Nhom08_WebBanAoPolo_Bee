@@ -5241,7 +5241,7 @@ footer li{ /*chỉnh icon fb,instagram,youtube*/
 /* ------------------------Banner SPRING OF THE Y------------------------------*/
 #banner2 {/* banner rồng*/
   width: 100%;
-  background-image :url("../images/banner rồng2.jpg");
+  background-image :url("../images/banner_1.jpg");
   background-size:cover;
   height: 710px;/*chỉnh size banner*/
   margin-top:40px;
@@ -5286,7 +5286,7 @@ footer li{ /*chỉnh icon fb,instagram,youtube*/
 /* ------------------------Banner LILIWUYN------------------------------*/
 #banner3 {/* banner lilywuyn*/
   width: 100%;
-  background-image :url("../images/banner liliwuyn2.jpg");
+  background-image :url("../images/banner/2.jpg");
   background-size:cover;
   height: 700px;/*chỉnh size banner*/
   margin-top:-40px;
