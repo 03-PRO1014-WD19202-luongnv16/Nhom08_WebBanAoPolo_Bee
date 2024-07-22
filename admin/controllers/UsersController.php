@@ -37,5 +37,5 @@
 			$this->modelDelete($id);
 			header("location:index.php?controller=users");
 		}
-	}
+	} 
  ?>
