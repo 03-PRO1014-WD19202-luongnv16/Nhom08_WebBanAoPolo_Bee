@@ -36,5 +36,5 @@
 		public function changePassPost(){
 			$this->modelChangePass();
 		}
-	}
+	} 
  ?>
