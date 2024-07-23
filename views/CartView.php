@@ -1,4 +1,4 @@
-<?php $this->layoutPath = "LayoutTrangChu.php"; 
+<?php $this->layoutPath = "LayoutTrangChu.php";
 $cartList = $this->modelGetCart();
 ?>
 <section class="contact-img-area">
@@ -20,8 +20,8 @@ $cartList = $this->modelGetCart();
                 <div class="s-cart-all">
                     <div class="cart-form table-responsive">
                         <?php
-                            if(!getLoggedInUser()){
-                                echo '<p style="font-weight: bold; text-align: center; font-size: 16px;">Vui lòng đăng nhập trước khi thêm vào giỏ hàng.</p>
+                        if (!getLoggedInUser()) {
+                            echo '<p style="font-weight: bold; text-align: center; font-size: 16px;">Vui lòng đăng nhập trước khi thêm vào giỏ hàng.</p>
                                 <hr class="opacity-20">
                                 <div class="row">
                                     <div class="second-all-class">
@@ -64,8 +64,8 @@ $cartList = $this->modelGetCart();
                             </div>
                             </div>
                             </div>   ';
-                            } elseif (empty($cartList)) {
-                                echo '<p style="font-weight: bold; text-align: center; font-size: 16px;">Không có sản phẩm nào ở giỏ hàng.</p>
+                        } elseif (empty($cartList)) {
+                            echo '<p style="font-weight: bold; text-align: center; font-size: 16px;">Không có sản phẩm nào ở giỏ hàng.</p>
                                 <hr class="opacity-20">
                                 <div class="col-sm-12 col-xs-12 mx-auto">
                                     <div class="sub-total">
@@ -99,20 +99,20 @@ $cartList = $this->modelGetCart();
                             </div>
                             </div>
                             </div>   ';
-                            } else {
+                        } else {
                             ?>
-                        <table id="shopping-cart-table" class="data-table cart-table">
-                            <tr>
-                                <th class="low8">STT</th>
-                                <th class="low1">Ảnh Sản Phẩm</th>
-                                <th class="low1">Tên Sản Phẩm</th>
-                                <th class="low7">Số Lượng</th>
-                                <th class="low7">Giá</th>
-                                <th class="low7">Tổng Tiền</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <?php
+                            <table id="shopping-cart-table" class="data-table cart-table">
+                                <tr>
+                                    <th class="low8">STT</th>
+                                    <th class="low1">Ảnh Sản Phẩm</th>
+                                    <th class="low1">Tên Sản Phẩm</th>
+                                    <th class="low7">Số Lượng</th>
+                                    <th class="low7">Giá</th>
+                                    <th class="low7">Tổng Tiền</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <?php
                                     $cart = [];
                                     if (isset($_COOKIE['cart'])) {
                                         $json = $_COOKIE['cart'];
@@ -157,7 +157,7 @@ $cartList = $this->modelGetCart();
                                                 <span> VNĐ</span>
                                             </td>
                                             <td>
-                                                <a href="index.php?controller=cart&action=delete&id='. $item->id .'">
+                                                <a href="index.php?controller=cart&action=delete&id=' . $item->id . '">
                                                     <button class="btn btn-danger">
                                                     Xoá
                                                     </button>
@@ -167,52 +167,53 @@ $cartList = $this->modelGetCart();
                                         ';
                                     }
                                     ?>
-                            </tr>
-                        </table>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="last-check1">
+                            <div class="yith-wcwl-share yit">
+                                <p class="checkout-coupon an-cop">
+                                    <input type="submit" value="Update Cart" data-item-id="<?= $itemId ?>"
+                                        onclick="addToCart(this)">
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="last-check1">
-                        <div class="yith-wcwl-share yit">
-                            <p class="checkout-coupon an-cop">
-                                <input type="submit" value="Update Cart" data-item-id="<?= $itemId ?>" onclick="addToCart(this)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="second-all-class">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="sub-total">
+                            <table>
+                                <tbody>
+
+                                    <tr class="order-total">
+                                        <th>Tổng Đơn Hàng:</th>
+                                        <td>
+                                            <strong>
+                                                <span class="amount"><?= number_format($grandTotal, 0, ',', '.') ?></span>
+                                                <span> VNĐ</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wc-proceed-to-checkout">
+                            <p class="return-to-shop">
+                                <a class="button wc-backward" href="index.php">Continue Shopping</a>
                             </p>
+                            <a class="wc-forward" href="index.php?controller=cart&action=checkout">Confirm Order</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="second-all-class">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="sub-total">
-                        <table>
-                            <tbody>
-                             
-                                <tr class="order-total">
-                                    <th>Tổng Đơn Hàng:</th>
-                                    <td>
-                                        <strong>
-                                        <span class="amount"><?= number_format($grandTotal, 0, ',', '.') ?></span>
-                                        <span> VNĐ</span>
-                                        </strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="wc-proceed-to-checkout">
-                        <p class="return-to-shop">
-                            <a class="button wc-backward" href="index.php">Continue Shopping</a>
-                        </p>
-                        <a class="wc-forward" href="index.php?controller=cart&action=checkout">Confirm Order</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-<?php
-    }
-    ?>
+    <?php
+                        }
+                        ?>
 <!-- shopping-cart  content section end -->
 <script>
     function addToCart(button) {
@@ -231,10 +232,10 @@ $cartList = $this->modelGetCart();
         var priceId = itemId + '_price';
         var num = document.getElementById(itemId + '_num').value;
         if (isNaN(num) || num <= 0) {
-                // Nếu không hợp lệ, đặt giá trị mặc định là 1
-                numInput.value = 1;
-                num = 1;
-            }
+            // Nếu không hợp lệ, đặt giá trị mặc định là 1
+            numInput.value = 1;
+            num = 1;
+        }
         var tong = itemPrice * num; // Tính tổng giá trị mới của sản phẩm
         document.getElementById(priceId).innerHTML = tong.toLocaleString();
         updateGrandTotal(); // Gọi hàm cập nhật tổng giá trị mới của đơn hàng

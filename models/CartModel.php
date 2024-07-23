@@ -111,7 +111,7 @@
 						}
 					}
 
-					$query = $conn->prepare("insert into order_details set order_id=:order_id, product_id=:product_id, id_user=:id_user, num=:num, price=:price, status='Đang chuẩn bị'");
+					$query = $conn->prepare("insert into order_details set order_id=:order_id, product_id=:product_id, id_user=:id_user, num=:num, price=:price, status='Đang chờ xác nhận'");
 					$query->execute(array("order_id"=>$orderId,"product_id"=> $item->id,"id_user"=> getLoggedInUser()->id_user,"num"=>$num,"price"=>$item->price));
 
 					echo '<script language="javascript">

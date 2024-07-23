@@ -244,31 +244,39 @@
 
                                 <tbody>
                                     <tr>
-                                        <?php
-                                            foreach ($record as $index => $item) {
-                                                echo '  <tr>
-                                                            <td class="text-heading font-semibold">' . (++$index) . '</td>
-                                                            <td class="text-heading font-semibold">' . $item->fullname . '</td>
-                                                            <td class="text-heading font-semibold">' . $item->title . '</td>
-                                                            <td class="text-heading font-semibold">' . $item->num . '</td>
-                                                            <td class="text-heading font-semibold">' . number_format($item->price, 0, ',', '.') . ' VNĐ</td>
-                                                            <td class="text-heading font-semibold">' . $item->address . '</td>
-                                                            <td class="text-heading font-semibold">' . $item->phone_number . '</td>
-                                                            <td>
-                                                                <select class="border border-4 text-heading font-semibold" name="status" id="status" onchange="status(' . $item->order_id . ')">
-                                                                    <option value="Đang chuẩn bị hàng">Đang chuẩn bị hàng</option>
-                                                                    <option value="Đã giao cho đơn vị vận chuyển">Đã giao cho đơn vị vận chuyển</option>
-                                                                    <option value="Đang giao">Đang giao</option>
-                                                                    <option value="Đã nhận hàng">Đã nhận hàng</option>
-                                                                    <option value="Đã hủy">Đã hủy</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <button type="submit" class=" btn btn-success">Lưu</button>
-                                                            </td>
+                                    <?php
+                                        foreach ($record as $index => $item) {
+                                            echo '<tr>
+                                                    <td class="text-heading font-semibold">' . (++$index) . '</td>
+                                                    <td class="text-heading font-semibold">' . $item->fullname . '</td>
+                                                    <td class="text-heading font-semibold">' . $item->title . '</td>
+                                                    <td class="text-heading font-semibold">' . $item->num . '</td>
+                                                    <td class="text-heading font-semibold">' . number_format($item->price, 0, ',', '.') . ' VNĐ</td>
+                                                    <td class="text-heading font-semibold">' . $item->address . '</td>
+                                                    <td class="text-heading font-semibold">' . $item->phone_number . '</td>
+                                                    <td>
+                                                        <select class="border border-4 text-heading font-semibold" name="status" id="status" onchange="status(' . $item->order_id . ')">';
 
-                                                        </tr>';
+                                            if ($item->status == 'Đang chờ xác nhận') {
+                                                echo '<option value="Đang chờ xác nhận">Đang chờ xác nhận</option>
+                                                    <option value="Đã xác nhận">Đã xác nhận</option>
+                                                    <option value="Đã hủy">Đã hủy</option>';
+                                            } elseif ($item->status == 'Đã xác nhận') {
+                                                echo '<option value="Đã xác nhận">Đã xác nhận</option>
+                                                    <option value="Đang giao">Đang giao</option>
+                                                    <option value="Đã nhận hàng">Đã nhận hàng</option>';
+                                            } else {
+                                                echo '<option value="Đang giao">Đang giao</option>
+                                                    <option value="Đã nhận hàng">Đã nhận hàng</option>';
                                             }
+
+                                            echo '</select>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-success">Lưu</button>
+                                                    </td>
+                                                </tr>';
+                                        }
                                         ?>
 
                                     </tr>
