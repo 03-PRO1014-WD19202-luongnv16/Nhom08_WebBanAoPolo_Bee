@@ -206,7 +206,7 @@ $cartList = $this->modelGetCart();
                        <img src="assets/images/' . $item->thumbnail . '" alt="">
                    </a>
                </div>
-               <div>
+               <div> 
                    <div class="tb-beg">
                        <a href="#">' . $item->title . '</a>
                    </div>
