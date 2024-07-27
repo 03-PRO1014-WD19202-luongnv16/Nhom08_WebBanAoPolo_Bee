@@ -121,7 +121,7 @@
 				}
 				setcookie('cart', '[]', time() - 1000, '/');
 			}
-
+ 
 		}
 
 		public function modelGetCartHistory(){

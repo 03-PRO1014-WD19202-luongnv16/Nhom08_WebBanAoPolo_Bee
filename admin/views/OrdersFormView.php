@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,14 +15,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Popper JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <!-- Latest compiled JavaScrseipt -->
+  <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <script src="../script.js"></script>
 </head>
-<!-- bytewebster.com -->
-<!-- bytewebster.com -->
-<!-- bytewebster.com -->
 <body>
 <!-- Dashboard -->
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -222,28 +218,101 @@
                 </div>
                 <div class="card shadow border-0 mb-7">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Cập nhật trạng thái đơn hàng</h5>
+                        <h2 class="mb-0">Chi tiết đơn hàng</h2>
+                    </div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">1.Thông tin đơn hàng</h5>
                     </div>
                     <div class="table-responsive">
                         <form action="<?= $action ?>" method="POST">
+                            <!-- Section 1: Order Status and Customer Information -->
+                            <?php
+$groupedRecords = [];
+
+// Group records by customer
+foreach ($record as $item) {
+    if (!isset($groupedRecords[$item->phone_number])) {
+        $groupedRecords[$item->phone_number] = [
+            'fullname' => $item->fullname,
+            'phone_number' => $item->phone_number,
+            'address' => $item->address,
+            'orders' => [],
+            'status' => $item->status // Assuming status is the same for all orders of a customer
+        ];
+    }
+    $groupedRecords[$item->phone_number]['orders'][] = $item->order_id;
+}
+?>
+
+<table class="table table-hover table-nowrap">
+    <tbody>
+        <?php foreach ($groupedRecords as $customer) { ?>
+            <tr>
+                <td class="text-heading font-semibold">Tên Khách Hàng</td>
+                <td><?php echo htmlspecialchars($customer['fullname']); ?></td>
+            </tr>
+            <tr>
+                <td class="text-heading font-semibold">Số Điện Thoại</td>
+                <td><?php echo htmlspecialchars($customer['phone_number']); ?></td>
+            </tr>
+            <tr>
+                <td class="text-heading font-semibold">Địa Chỉ</td>
+                <td><?php echo htmlspecialchars($customer['address']); ?></td>
+            </tr>
+            <tr>
+                <td class="text-heading font-semibold">Trạng Thái</td>
+                <td>
+                    <select class="form-control" name="status" id="status" onchange="updateStatus([<?php echo implode(',', $customer['orders']); ?>])">
+                        <?php if ($customer['status'] == 'Đang chờ xác nhận') { ?>
+                            <option value="Đang chờ xác nhận">Đang chờ xác nhận</option>
+                            <option value="Đã xác nhận">Đã xác nhận</option>
+                            <option value="Đã hủy">Đã hủy</option>
+                        <?php } elseif ($customer['status'] == 'Đã xác nhận') { ?>
+                            <option value="Đã xác nhận">Đã xác nhận</option>
+                            <option value="Đang giao">Đang giao</option>
+                        <?php } else { ?>
+                            <option value="Đang giao">Đang giao</option>
+                            <option value="Giao hàng thành công">Giao hàng thành công</option>
+                            <option value="Giao hàng thất bại">Giao hàng thất bại</option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<script>
+function updateStatus(orderIds) {
+    // JavaScript function to update the status of all orders of a customer
+    // You can implement the AJAX request to send the status update to your server here
+}
+</script>
+<br>
+<br>
+
+
+
+                            <!-- Section 2: Product Details -->
+                             
                             <table class="table table-hover table-nowrap">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">2.Thông tin sản phẩm</h5>
+                    </div>
+                           
                                 <thead class="thead-light">
-                                    <tr>
+                                <tr>
                                         <th scope="col">Số Thứ Tự</th>
-                                        <th scope="col">Tên Khách Hàng</th>
                                         <th scope="col">Tên Sản Phẩm</th>
-                                        <th scope="col">Số Lượng</th>
                                         <th scope="col">Đơn Giá</th>
-                                        <th scope="col">Địa Chỉ</th>
-                                        <th scope="col">Số Điện Thoại</th>
-                                        <th scope="col">Trạng Thái</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th scope="col">Số Lượng</th>
+                                        <th scope="col">Thành Tiền</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
+                                    <?php foreach ($record as $index => $item) { ?>
                                     <tr>
+<<<<<<< HEAD
                                     <?php
                                         foreach ($record as $index => $item) {
                                             echo '<tr>
@@ -280,11 +349,33 @@
                                         }
                                         ?>
 
+=======
+                                        <td class="text-heading font-semibold"><?= ++$index ?></td>
+                                        <td class="text-heading font-semibold"><?= $item->title ?></td>
+                                        <td class="text-heading font-semibold"><?= number_format($item->price, 0, ',', '.') ?> VNĐ</td>
+                                        <td class="text-heading font-semibold"><?= $item->num ?></td>
+                                        <td class="text-heading font-semibold"><?= number_format($item->price * $item->num, 0, ',', '.') ?> VNĐ</td>
                                     </tr>
-
+                                    <?php } ?>
+                                    <!-- Calculate Total Amount -->
+                                    <tr>
+                                        <td colspan="4" class="text-end font-semibold">Tổng Tiền</td>
+                                        <td class="text-heading font-semibold">
+                                            <?php
+                                            $total = 0;
+                                            foreach ($record as $item) {
+                                                $total += $item->price * $item->num;
+                                            }
+                                            echo number_format($total, 0, ',', '.') . ' VNĐ';
+                                            ?>
+                                        </td>
+>>>>>>> eb5b486694e014fc4b9342dcf0525b668218a09a
+                                    </tr>
                                 </tbody>
                             </table>
-                                <a href="index.php?controller=orders" class="btn btn-warning">Back</a>
+                            <a href="index.php?controller=orders" class="btn btn-warning">Back</a>
+                            <button type="submit" class="btn btn-success">Lưu</button>
+                            
                         </form>
                     </div>
                 </div>
