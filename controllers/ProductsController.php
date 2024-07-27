@@ -44,6 +44,6 @@
 			foreach($result as $rows)
 				$strResult = $strResult."<li><img src='assets/upload/products/{$rows->photo}'><a href='index.php?controller=products&action=detail&id={$rows->id}'>{$rows->name}</a></li>";
 			echo $strResult;
-		}
+		} 
 	}
  ?>
