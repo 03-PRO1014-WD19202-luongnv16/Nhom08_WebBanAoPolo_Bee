@@ -265,6 +265,7 @@
                                                 echo '<option value="Đã xác nhận">Đã xác nhận</option>
                                                     <option value="Đang giao">Đang giao</option>
                                                     <option value="Đã nhận hàng">Đã nhận hàng</option>';
+                                                    
                                             } else {
                                                 echo '<option value="Đang giao">Đang giao</option>
                                                     <option value="Đã nhận hàng">Đã nhận hàng</option>';
