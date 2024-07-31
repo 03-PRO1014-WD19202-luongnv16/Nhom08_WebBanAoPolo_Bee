@@ -292,6 +292,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <div class="card-footer border-0 py-5">
 
                         <nav aria-label="Page navigation example">
