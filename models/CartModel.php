@@ -95,7 +95,7 @@
 
 
 				//insert ban ghi vao orders, lay order_id vua moi insert
-				$query = $conn->prepare("insert into orders set fullname=:fullname, email=:email, phone_number=:phone_number, address=:address, note=:note, order_date=now()");
+				$query = $conn->prepare("insert into orders set fullname=:fullname, email=:email, phone_number=:phone_number, address=:address, note=:note, order_date=now(), status='Đang chờ xác nhận'");
 				$query->execute(array("fullname"=>$fullname,"email"=>$email,"phone_number"=>$phone_number,"address"=>$address,"note"=>$note));
 				
 				$orderId = $conn->lastInsertId();
@@ -111,7 +111,7 @@
 						}
 					}
 
-					$query = $conn->prepare("insert into order_details set order_id=:order_id, product_id=:product_id, id_user=:id_user, num=:num, price=:price, status='Đang chờ xác nhận'");
+					$query = $conn->prepare("insert into order_details set order_id=:order_id, product_id=:product_id, id_user=:id_user, num=:num, price=:price");
 					$query->execute(array("order_id"=>$orderId,"product_id"=> $item->id,"id_user"=> getLoggedInUser()->id_user,"num"=>$num,"price"=>$item->price));
 
 					echo '<script language="javascript">
@@ -127,7 +127,7 @@
 		public function modelGetCartHistory(){
 			$conn = Connection::getInstance();
 			$userId = getLoggedInUser()->id_user;
-			$query = $conn->query("SELECT * from order_details, product where product.id=order_details.product_id AND order_details.id_user = '$userId' ORDER BY order_id DESC");
+			$query = $conn->query("SELECT * from order_details, product,orders where product.id=order_details.product_id AND order_details.id_user = '$userId' AND orders.id=order_details.order_id ORDER BY order_id DESC");
 			$cartList = $query->fetchAll();
 			return $cartList;
 		}

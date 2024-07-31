@@ -249,11 +249,9 @@
                                 <tr>
                                     <th scope="col">Số Thứ Tự</th>
                                     <th scope="col">Tên Khách Hàng</th>
-                                    <th scope="col">Tên Sản Phẩm</th>
-                                    <th scope="col">Số Lượng</th>
-                                    <th scope="col">Đơn Giá</th>
-                                    <th scope="col">Địa Chỉ</th>
                                     <th scope="col">Số Điện Thoại</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Địa Chỉ</th>
                                     <th scope="col">Trạng Thái</th>
                                     <th></th>
                                     <th></th>
@@ -272,14 +270,12 @@
                                             <tr>
                                             <td> <?= ++$key ?></td>
                                             <td class="text-heading font-semibold"><?= $item->fullname ?></td>
-                                            <td class="text-heading font-semibold"><?= $item->title ?></td>
-                                            <td class="text-heading font-semibold"><?= $item->num ?></td>
-                                            <td class="text-heading font-semibold"><?= number_format($item->price, 0, ',', '.')  ?> VNĐ</td>
+                                            <td class="text-heading font-semibold"><?= $item->phone_number ?></td>
+                                            <td class="text-heading font-semibold"><?= $item->email ?></td>
                                             <td class="text-heading font-semibold"><?= $item->address  ?></td>
-                                            <td class="text-heading font-semibold"><?= $item->phone_number  ?></td>
                                             <td class="text-heading font-semibold"><?= $item->status  ?></td>
                                             <td>
-                                                <a href="index.php?controller=orders&action=update&id=<?php echo $item->order_id; ?>">
+                                                <a href="index.php?controller=orders&action=update&id=<?php echo $item->id; ?>">
                                                     <button class=" btn btn-success">Sửa</button>
                                                 </a>
                                             </td>
