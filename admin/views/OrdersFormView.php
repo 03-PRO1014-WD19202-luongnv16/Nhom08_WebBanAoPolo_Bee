@@ -274,25 +274,32 @@
                                                 <td><?php echo htmlspecialchars($customer['address']); ?></td>
                                             </tr>
                                             <tr>
-                                                <td class="text-heading font-semibold">Trạng Thái</td>
-                                                <td>
-                                                    <select class="form-control" name="status" id="status"
-                                                        onchange="updateStatus([<?php echo implode(',', $customer['orders']); ?>])">
-                                                        <?php if ($customer['status'] == 'Đang chờ xác nhận') { ?>
-                                                            <option value="Đang chờ xác nhận">Đang chờ xác nhận</option>
-                                                            <option value="Đã xác nhận">Đã xác nhận</option>
-                                                            <option value="Đã hủy">Đã hủy</option>
-                                                        <?php } elseif ($customer['status'] == 'Đã xác nhận') { ?>
-                                                            <option value="Đã xác nhận">Đã xác nhận</option>
-                                                            <option value="Đang giao">Đang giao</option>
-                                                        <?php } else { ?>
-                                                            <option value="Đang giao">Đang giao</option>
-                                                            <option value="Giao hàng thành công">Giao hàng thành công</option>
-                                                            <option value="Giao hàng thất bại">Giao hàng thất bại</option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </td>
+                                            <td class="text-heading font-semibold">Trạng Thái</td>
+                                            <td>
+                                                <select class="form-control" name="status" id="status"
+                                                onchange="updateStatus([<?php echo implode(',', $customer['orders']); ?>])">
+                                                <?php if ($customer['status'] == 'Đang chờ xác nhận') { ?>
+                                                    <option value="Đang chờ xác nhận" <?php echo $customer['status'] == 'Đang chờ xác nhận' ? 'selected' : ''; ?>>Đang chờ xác nhận</option>
+                                                    <option value="Đã xác nhận">Đã xác nhận</option>
+                                                    <option value="Đã hủy">Đã hủy</option>
+                                                <?php } elseif ($customer['status'] == 'Đã xác nhận') { ?>
+                                                    <option value="Đã xác nhận" <?php echo $customer['status'] == 'Đã xác nhận' ? 'selected' : ''; ?>>Đã xác nhận</option>
+                                                    <option value="Đang giao">Đang giao</option>
+                                                <?php } elseif ($customer['status'] == 'Đang giao') { ?>
+                                                    <option value="Đang giao" <?php echo $customer['status'] == 'Đang giao' ? 'selected' : ''; ?>>Đang giao</option>
+                                                    <option value="Giao hàng thành công">Giao hàng thành công</option>
+                                                    <option value="Giao hàng thất bại">Giao hàng thất bại</option>
+                                                <?php } elseif ($customer['status'] == 'Đã hủy') { ?>
+                                                    <option value="Đã hủy" selected disabled>Đã hủy</option>
+                                                <?php } elseif ($customer['status'] == 'Giao hàng thành công') { ?>
+                                                    <option value="Giao hàng thành công" selected disabled>Giao hàng thành công</option>
+                                                <?php } elseif ($customer['status'] == 'Giao hàng thất bại') { ?>
+                                                    <option value="Giao hàng thất bại" selected disabled>Giao hàng thất bại</option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
                                             </tr>
+                                            
                                         <?php } ?>
                                     </tbody>
                                 </table>
