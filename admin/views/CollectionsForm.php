@@ -271,11 +271,17 @@
     </div>
 </div>
     <script type="text/javascript">
-        function addProduct()
-        {
-            var option = confirm('Thêm thương hiệu thành công')
-            if (!option) {
-                return;
+      function addProduct(success) {
+            if (success) {
+                var option = confirm('Thêm thương hiệu thành công. Bạn có muốn tiếp tục?');
+                if (!option) {
+                    return; 
+                }
+            } else {
+                var option = confirm('Thêm thương hiệu thất bại. Bạn có muốn thử lại?');
+                if (!option) {
+                    return; 
+                }
             }
         }
     </script>
