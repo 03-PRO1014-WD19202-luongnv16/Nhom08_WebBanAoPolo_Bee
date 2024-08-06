@@ -342,17 +342,11 @@
                 height: 200
             });
         })
-        function addProduct(success) {
-            if (success) {
-                var option = confirm('Thêm sản phẩm thành công. Bạn có muốn tiếp tục?');
-                if (!option) {
-                    return; 
-                }
-            } else {
-                var option = confirm('Thêm sản phẩm thất bại. Bạn có muốn thử lại?');
-                if (!option) {
-                    return; 
-                }
+        function addProduct()
+        {
+            var option = confirm('Thêm thành công')
+            if (!option) {
+                return;
             }
         }
     </script>
