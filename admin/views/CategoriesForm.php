@@ -270,11 +270,17 @@
     </div>
 </div>
     <script type="text/javascript">
-        function addProduct()
-        {
-            var option = confirm('Thêm danh mục thành công')
-            if (!option) {
-                return;
+      function addProduct(success) {
+            if (success) {
+                var option = confirm('Thêm danh mục thành công. Bạn có muốn tiếp tục?');
+                if (!option) {
+                    return; 
+                }
+            } else {
+                var option = confirm('Thêm danh mục thất bại. Bạn có muốn thử lại?');
+                if (!option) {
+                    return; 
+                }
             }
         }
     </script>

@@ -270,11 +270,17 @@
     </div>
 </div>
     <script type="text/javascript">
-        function addUser()
-        {
-            var option = confirm('Thêm User thành công')
-            if (!option) {
-                return;
+      function adUser(success) {
+            if (success) {
+                var option = confirm('Thêm user thành công. Bạn có muốn tiếp tục?');
+                if (!option) {
+                    return; 
+                }
+            } else {
+                var option = confirm('Thêm user thất bại. Bạn có muốn thử lại?');
+                if (!option) {
+                    return; 
+                }
             }
         }
     </script>
