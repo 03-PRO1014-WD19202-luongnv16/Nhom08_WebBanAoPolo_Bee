@@ -44,4 +44,4 @@ function getLoggedInAdmin() {
 	}
 
 	return null;
-}
+} 

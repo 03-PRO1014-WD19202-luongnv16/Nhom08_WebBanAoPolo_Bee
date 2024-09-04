@@ -15,7 +15,7 @@
 					echo '<script>alert("Đăng ký thành công.");
                 	window.location.href="index.php?controller=account&action=login";
 					</script>';
-				}
+				} 
 			}
 
 		}

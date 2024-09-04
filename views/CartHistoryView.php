@@ -94,7 +94,7 @@ $cartList = $this->modelGetCart();
                                             </tr>
                                             ';
                                         }
-                                    }
+                                    } 
                                     ?>
 
                                     </tr>

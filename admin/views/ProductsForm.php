@@ -342,9 +342,9 @@
                 height: 200
             });
         })
-		function addProduct()
+        function addProduct()
         {
-            var option = confirm('Bạn thêm sản phẩm thành công')
+            var option = confirm('Thêm thành công')
             if (!option) {
                 return;
             }

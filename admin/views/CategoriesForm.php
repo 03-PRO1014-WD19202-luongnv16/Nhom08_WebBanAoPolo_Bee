@@ -270,9 +270,9 @@
     </div>
 </div>
     <script type="text/javascript">
-        function addProduct()
+function addProduct()
         {
-            var option = confirm('Thêm danh mục thành công')
+            var option = confirm('Thêm thành công')
             if (!option) {
                 return;
             }
